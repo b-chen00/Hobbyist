@@ -16,8 +16,8 @@ An User with references to Posts and other Users:
 
 ```javascript
 {
-  username: "shannonshopper",
-  hash: // a password hash,
+  username: "shannonshopper"
+  hash: // a password hash
   posts: // an array of references to Post documents
   follows: // an array of references to User documents
   followers: // an array of references to User documents
@@ -29,13 +29,13 @@ A Post with embedded Comments items:
 ```javascript
 {
   user: // a reference to a User object
-  title: "Origami Godzilla",
+  title: "Origami Godzilla"
   category: // a category String entered by user or a dropdown menu
   comments: [
-    { user: Toad, content: "very cool"},
-    { user: Frog, content: "very not cool"},
-  ],
-  createdAt: // timestamp,
+    { user: Toad, content: "very cool"}
+    { user: Frog, content: "very not cool"}
+  ]
+  createdAt: // timestamp
   likes: 0
 }
 ```
