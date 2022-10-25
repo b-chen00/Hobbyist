@@ -29,8 +29,8 @@ A Post with embedded Comments items:
 ```javascript
 {
   user: // a reference to a User object
-  title: "Breakfast foods",
-  category: // a category String entered by user
+  title: "Origami Godzilla",
+  category: // a category String entered by user or a dropdown menu
   comments: [
     { user: Toad, content: "very cool"},
     { user: Frog, content: "very not cool"},
