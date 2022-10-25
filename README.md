@@ -8,43 +8,44 @@ The content below is an example project proposal / requirements document. Replac
 
 (__TODO__: a brief one or two paragraph, high-level description of your project)
 
-Remembering what to buy at the grocery store is waaaaay too difficult. Also, shopping for groceries when you're hungry leads to regrettable purchases. Sooo... that's where Shoppy Shoperson comes in!
-
-Shoppy Shoperson is a web app that will allow users to keep track of multiple grocery lists. Users can register and login. Once they're logged in, they can create or view their grocery list. For every list that they have, they can add items to the list or cross off items.
-
+There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional fields such as descriptions, images, and guides. The user can view all other users' blogs, have a personalized feed through a follow function, or search for specific content. Users can also like and comment on posts in order for the community to thrive.
 
 ## Data Model
 
 (__TODO__: a description of your application's data and their relationships to each other) 
 
-The application will store Users, Lists and Items
+The application will store Users, Posts, and Comments.
 
-* users can have multiple lists (via references)
-* each list can have multiple items (by embedding)
+* users can have multiple posts (via references)
+* each post can have multiple comments (by embedding or referenmces, don't know which one is better yet)
 
 (__TODO__: sample documents)
 
-An Example User:
+An User:
 
 ```javascript
 {
   username: "shannonshopper",
   hash: // a password hash,
-  lists: // an array of references to List documents
+  posts: // an array of references to Post documents
+  follows: // an array of references to User documents
+  followers: // an array of references to User documents
 }
 ```
 
-An Example List with Embedded Items:
+A Post with embedded comments Items:
 
 ```javascript
 {
   user: // a reference to a User object
-  name: "Breakfast foods",
-  items: [
-    { name: "pancakes", quantity: "9876", checked: false},
-    { name: "ramen", quantity: "2", checked: true},
+  title: "Breakfast foods",
+  category: // a category String entered by user
+  comments: [
+    { user: Toad, content: "very cool"},
+    { user: Frog, content: "very not cool"},
   ],
-  createdAt: // timestamp
+  createdAt: // timestamp,
+  likes: 0
 }
 ```
 
