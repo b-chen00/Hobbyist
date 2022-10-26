@@ -1,6 +1,6 @@
-import * as mongoose from 'mongoose'; 
+import * as mongoose from 'mongoose';
 
-mongoose.connect('');
+mongoose.connect('mongodb://localhost/db');
 
 const User = new mongoose.Schema({
 	name: String,
