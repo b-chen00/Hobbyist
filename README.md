@@ -43,7 +43,7 @@ A Post with embedded Comments items:
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
-(__TODO__: create a first draft of your Schemas in db.mjs and link to it)
+[First Draft Schema](db.mjs)
 
 ## Wireframes
 
@@ -98,7 +98,7 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## [Link to Initial Main Project File](app.mjs) 
 
-(__TODO__: create a skeleton Express application with a package.json, app.mjs, views folder, etc. ... and link to your initial app.mjs)
+[Initial Main Project](app.mjs)
 
 ## Annotations / References Used
 
