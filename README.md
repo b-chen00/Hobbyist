@@ -75,18 +75,12 @@ A Post with embedded Comments items:
 
 (__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
 
-* (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
-    * see <code>cs.nyu.edu/~jversoza/ait-final/register</code> for register page
-    * see <code>cs.nyu.edu/~jversoza/ait-final/login</code> for login page
-* (4 points) Perform client side form validation using a JavaScript library
-    * see <code>cs.nyu.edu/~jversoza/ait-final/my-form</code>
-    * if you put in a number that's greater than 5, an error message will appear in the dom
-* (5 points) vue.js
-    * used vue.js as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+* (2 points) Bootstrap
+    * use Bootstrap CSS framework to create a theme
+* (6 points) React
+    * use React as the front-end framework
 
-10 points total out of 8 required points (___TODO__: addtional points will __not__ count for extra credit)
+8 points total out of 8 required points
 
 
 ## [Link to Initial Main Project File](app.mjs) 
