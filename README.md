@@ -36,7 +36,7 @@ A Post with embedded Comments items:
     { user: Frog, content: "very not cool"}
   ]
   createdAt: // timestamp
-  likes: 0
+  likes: // an array of references to User documents
 }
 ```
 
@@ -47,19 +47,14 @@ A Post with embedded Comments items:
 
 ## Wireframes
 
-![Wireframe](img/wireframe.png)
+![Wireframe](documentation/wireframe.png)
 
-/list/create - page for creating a new shopping list
-
-![list create](documentation/list-create.png)
-
-/list - page for showing all shopping lists
-
-![list](documentation/list.png)
-
-/list/slug - page for showing specific shopping list
-
-![list](documentation/list-slug.png)
+/login - page to login to an exist account
+/register - page to create an account
+/feed - page which 50 of the most recent posts or posts by users the user follows
+/post - page to display a specific post with comments along with like and comment form functionality
+/create - page with a form to create a post with an optional image insert field
+/profile - page displaying all posts made by the user
 
 ## Site map
 
