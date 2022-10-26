@@ -2,14 +2,13 @@
 
 ## Overview
 
-There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional fields such as descriptions, images, and guides. The user can view all other users' blogs, have a personalized feed through a follow function, or search for specific content. Users can also like and comment on posts in order for the community to thrive.
+There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional fields such as descriptions, images, and guides. The user can view all other users' blogs, have a personalized feed through a follow function or a simple view all, or search for specific content. Users can also like and comment on posts in order for the community to thrive.
 
 ## Data Model
 
 The application will store Users, Posts, and Comments.
 
 * users can have multiple posts (via references)
-* users can have multiple 
 * each post can have multiple comments (by embedding or referenmces, don't know which one is better yet)
 
 A User with references to Posts and other Users:
