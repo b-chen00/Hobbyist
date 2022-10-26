@@ -50,10 +50,15 @@ A Post with embedded Comments items:
 ![Wireframe](documentation/wireframe.png)
 
 /login - page to login to an exist account
+
 /register - page to create an account
+
 /feed - page which 50 of the most recent posts or posts by users the user follows
+
 /post - page to display a specific post with comments along with like and comment form functionality
+
 /create - page with a form to create a post with an optional image insert field
+
 /profile - page displaying all posts made by the user
 
 ## Site map
