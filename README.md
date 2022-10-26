@@ -47,7 +47,7 @@ A Post with embedded Comments items:
 
 ## Wireframes
 
-![Wireframe](wireframe.png)
+![Wireframe](img/wireframe.png)
 
 /list/create - page for creating a new shopping list
 
