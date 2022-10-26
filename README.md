@@ -18,8 +18,6 @@ A User with references to Posts and other Users:
   username: "I Eat Tea"
   hash: // a password hash
   posts: // an array of references to Post documents
-  follows: // an array of references to User documents
-  followers: // an array of references to User documents
 }
 ```
 
