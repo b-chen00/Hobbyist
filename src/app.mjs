@@ -27,6 +27,9 @@ app.use(session({
     saveUninitialized: true,
 }));
 
+app.use("/styles/css", express.static(path.join(__dirname, "../node_modules/bootstrap/dist/css"))); // <- This will use the contents of 'bootstrap/dist/css' which is placed in your node_modules folder as if it is in your '/styles/css' directory.
+
+
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
