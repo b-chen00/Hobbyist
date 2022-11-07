@@ -79,6 +79,8 @@ A Post with embedded Comments items:
     * use Bootstrap CSS framework to create a theme
 * (6 points) React
     * use React as the front-end framework
+* (3 points) dotenv
+    * use dotenv as a configuration management to connect to MongoDB Atlas
 
 8 points total out of 8 required points
 
