@@ -131,8 +131,8 @@ app.post('/create', (req, res) => {
 app.get('/logout', (req, res) => {
     function error(err) {
         res.redirect('all')
-    }
+    };
     auth.endAuthenticatedSession(req, error)
-})
+});
 
 app.listen(process.env.PORT || 3000);
