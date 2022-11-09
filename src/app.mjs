@@ -55,6 +55,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+    // Referencing authentiation from homework #5
     function success(user) {
         auth.startAuthenticatedSession(req, user, (err) => {
             if(!err) {
@@ -77,6 +78,7 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
+    // Referencing authentiation from homework #5
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
@@ -115,15 +117,22 @@ app.get('/create', (req, res) => {
 });
 
 app.post('/create', (req, res) => {
-    const newPost = new Post({user: req.session.user._id, content: req.body.describe, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
+    const newPost = new Post({user: req.session.user._id, content: req.body.describe, title: req.body.title, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
     newPost.save(function (err){
         if (err){
             res.status(500).send(err);
         }
         else{
-            res.redirect('/profile');
+            res.redirect('/all');
         }
     });
 });
+
+app.get('/logout', (req, res) => {
+    function error(err) {
+        res.redirect('all')
+    }
+    auth.endAuthenticatedSession(req, error)
+})
 
 app.listen(process.env.PORT || 3000);

@@ -1,23 +1,12 @@
 {{#if user}}
 Logged in as: {{user.name}}
-<form method="GET" action="/create">
-    <input type="submit" value="create"/>
-</form>
-{{else}}
-<form method="GET" action="/login">
-    <input type="submit" value="login"/>
-</form>
-
-<form method="GET" action="/register">
-    <input type="submit" value="register"/>
-</form>
 {{/if}}
 
 
 {{#each posts as |p|}}
-<li>[<a href="/article/{{slug}}">details</a>]
+<a href="/post/{{slug}}"><h3>{{title}}</h3></a>
+{{category}}<br>
 {{content}}<br>
--{{user.name}}
+-{{user.name}} {{createdAt}}
 
-</li>
 {{/each}}

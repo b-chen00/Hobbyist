@@ -16,6 +16,7 @@ const UserSchema = new mongoose.Schema({
 const PostSchema = new mongoose.Schema({
 	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	content: String,
+	title: String,
 	category: String,
     comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
     createdAt: Date,
@@ -31,7 +32,7 @@ const CommentSchema = new mongoose.Schema({
 UserSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=name%>-<%=hash%>-<%=posts%>-<%=follows%>-<%=followers%>'});
 mongoose.model('User', UserSchema);
 
-PostSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=user%>-<%=content%>-<%=category%>-<%=comments%>-<%=createdAt%>-<%=likes%>'})
+PostSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=user%>-<%=content%>-<%=title%>-<%=category%>-<%=comments%>-<%=createdAt%>-<%=likes%>'})
 mongoose.model('Post', PostSchema);
 
 CommentSchema.plugin(mongooseSlugPlugin, {tmpl: '<%=user%>-<%=content%>-<%=post%>'});
