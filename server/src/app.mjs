@@ -46,6 +46,10 @@ const Post = mongoose.model('Post');
 const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME TOO SHORT": "Username or password is too short"};
 
+app.get('/api', (req, res) => {
+    res.send('hello world from express!');
+})
+
 app.get('/', (req, res) => {
     res.redirect('all');
 });
@@ -135,4 +139,4 @@ app.get('/logout', (req, res) => {
     auth.endAuthenticatedSession(req, error)
 });
 
-app.listen(process.env.PORT || 3000);
+app.listen(5000);
