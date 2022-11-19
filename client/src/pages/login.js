@@ -4,7 +4,6 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../services/auth-service";
 
 const required = (value) => {
     if (!value){
@@ -46,26 +45,22 @@ const Login = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0){
-            AuthService.login(username, password).then(
-                () => {
-                    navigate("/profile");
-                    window.location.reload();
+            fetch('http://localhost:8080/api/login', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
                 },
-                (error) => {
-                    const resMessage =
-                        (error.response &&
-                        error.response.data &&
-                    error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                    setLoading(false);
-                    setMessage(resMessage);
-                }
-            );
+                body: JSON.stringify(this.state)
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+                setMessage(result);
+                //setSuccessful(true);
+            });
         }
         else {
-            setLoading(false);
+            //setLoading(false);
         }
     };
 
@@ -80,7 +75,6 @@ const Login = () => {
                         className="form-control"
                         name="username"
                         value={username}
-                        onChange={onChangeUsername}
                         validations={[required]}
                         />
                     </div>
@@ -92,7 +86,6 @@ const Login = () => {
                         className="form-control"
                         name="password"
                         value={password}
-                        onChange={onChangePassword}
                         validations={[required]}
                         />
                     </div>

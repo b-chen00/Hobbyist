@@ -4,7 +4,6 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
-import AuthService from "../services/auth-service";
 
 const required = (value) => {
     if (!value) {
@@ -51,7 +50,6 @@ const Register = () => {
     const checkBtn = useRef();
 
     const [username, setUsername] = useState("");
-    //const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
@@ -60,11 +58,6 @@ const Register = () => {
         const username = e.target.value;
         setUsername(username);
     };
-
-    // const onChangeEmail = (e) => {
-    //     const email = e.target.value;
-    //     setEmail(email);
-    // };
 
     const onChangePassword = (e) => {
         const password = e.target.value;
@@ -80,23 +73,23 @@ const Register = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            AuthService.register(username, password).then(
-                (response) => {
-                    setMessage(response.data.message);
-                    setSuccessful(true);
+            fetch('http://localhost:8080/api/register', {
+                method: "POST",
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
                 },
-                (error) => {
-                    const resMessage =
-                    (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                    error.message ||
-                    error.toString();
-
-                    setMessage(resMessage);
-                    setSuccessful(false);
-                }
-            );
+                body: JSON.stringify({
+                    "username": username,
+                    "password": password
+                })
+            })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(result);
+                setMessage(result);
+                setSuccessful(true);
+            });
         }
     };
 
@@ -119,8 +112,8 @@ const Register = () => {
                             className="form-control"
                             name="username"
                             value={username}
-                            onChange={onChangeUsername}
                             validations={[required, vusername]}
+                            onChange={onChangeUsername}
                             />
                         </div>
 
@@ -131,8 +124,8 @@ const Register = () => {
                             className="form-control"
                             name="password"
                             value={password}
-                            onChange={onChangePassword}
                             validations={[required, vpassword]}
+                            onChange={onChangePassword}
                             />
                         </div>
 

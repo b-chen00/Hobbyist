@@ -5,6 +5,9 @@ import { fileURLToPath } from 'url';
 import * as db from './db.mjs';
 import session from 'express-session';
 import * as auth from './auth.mjs';
+import cors from 'cors';
+import bodyParser from 'body-parser'
+
 
 const db2 = mongoose.connection;
 db2.on("error", console.error.bind(console, "connection error: "));
@@ -17,17 +20,15 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.set('view engine', 'hbs');
-app.set('views', `${__dirname}/views`);
+app.use(cors());
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret: 'feline good',
     resave: false,
     saveUninitialized: true,
 }));
-
-app.use("/styles/css", express.static(path.join(__dirname, "../node_modules/bootstrap/dist/css"))); // <- This will use the contents of 'bootstrap/dist/css' which is placed in your node_modules folder as if it is in your '/styles/css' directory.
 
 
 app.use((req, res, next) => {
@@ -36,107 +37,90 @@ app.use((req, res, next) => {
 });
 
 // logging
-app.use((req, res, next) => {
-    console.log(req.method, req.path, req.body);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(req.method, req.path, req.body);
+//     next();
+// });
 
 const Post = mongoose.model('Post');
 
 const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME TOO SHORT": "Username or password is too short"};
 
-app.get('/api', (req, res) => {
-    res.send('hello world from express!');
-})
-
-app.get('/', (req, res) => {
-    res.redirect('all');
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
 });
 
-app.get('/login', (req, res) => {
-    res.render('login.hbs');
-});
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     // Referencing authentiation from homework #5
     function success(user) {
         auth.startAuthenticatedSession(req, user, (err) => {
             if(!err) {
-                res.redirect('/');
+                res.json({ message: "Logged in"});
             } else {
-                res.render('error', {message: 'error starting auth sess: ' + err});
+                res.json({ message: "Error starting auth session " + err});
             }
         });
     }
 
     function error(err) {
-        res.render('login', {message: loginMessages[err.message] || 'Login unsuccessful'});
+        res.json({ message: "Loggin unsuccessful " + err});
     }
 
     auth.login(req.body.username, req.body.password, error, success);
 });
 
-app.get('/register', (req, res) => {
-    res.render('register.hbs');
-});
-
-app.post('/register', (req, res) => {
+app.post('/api/register', (req, res) => {
     // Referencing authentiation from homework #5
+    console.log(req.body);
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
-                res.redirect('/');
+                console.log(2);
+                res.json({ message: "Registered"});
             } else {
-                res.render('error', {message: 'err authing???'});
+                console.log(3);
+                res.json({ message: "Error authentiating"});
             }
         });
     }
 
     function error(err) {
-        res.render('register', {message: registrationMessages[err.message] ?? 'Registration error'});
+        console.log(4);
+        res.json({ message: "Registration error"});
     }
-
+    console.log(0);
     auth.register(req.body.username, req.body.password, error, success);
 });
 
-app.get('/all', (req, res) => {
+app.get('/api/all', (req, res) => {
     Post.find({}).sort('-createdAt').populate('user').exec((err, posts) => {
         console.log(posts);
-        res.render('all', {posts: posts});
+        res.json({posts: posts});
     });
 });
 
-app.get('/profile', (req, res) => {
-    res.render('profile.hbs');
-});
 
-app.get('/post', (req, res) => {
-    res.render('post.hbs');
-});
-
-app.get('/create', (req, res) => {
-    console.log("working");
-    res.render('create');
-});
-
-app.post('/create', (req, res) => {
+app.post('/api/create', (req, res) => {
     const newPost = new Post({user: req.session.user._id, content: req.body.describe, title: req.body.title, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
     newPost.save(function (err){
         if (err){
-            res.status(500).send(err);
+            res.json({ message: "Error creating post " + err});
         }
         else{
-            res.redirect('/all');
+            res.json({ message: "Created"});
         }
     });
 });
 
-app.get('/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
     function error(err) {
-        res.redirect('all')
+        res.json({ message: "Error logging out " + err});
     };
     auth.endAuthenticatedSession(req, error)
 });
 
-app.listen(5000);
+app.listen(process.env.PORT || 8080, () =>{
+    console.log('LISTENING');
+});

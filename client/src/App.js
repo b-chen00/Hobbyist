@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
-import AuthService from "./services/auth-service";
 //import Navbar from './components/Navbar';
 // import { BrowserRouter as Router, Routes, Route}
 //     from 'react-router-dom';
@@ -11,22 +10,13 @@ import Create from './pages/create';
 import Register from './pages/register';
 import Login from './pages/login';
 import Profile from './pages/profile';
-import BoardUser from "./pages/boardUser";
 
 
 function App() {
     const [currentUser, setCurrentUser] = useState(undefined);
 
-    useEffect(() => {
-        const user = AuthService.getCurrentUser();
-
-        if (user) {
-        setCurrentUser(user);
-        }
-    }, []);
-
     const logOut = () => {
-        AuthService.logout();
+        //AuthService.logout();
     };
 
     return (

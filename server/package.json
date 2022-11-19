@@ -1,5 +1,5 @@
 {
-  "name": "final-project-brndnchn",
+  "name": "server",
   "version": "1.0.0",
   "description": "There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional fields such as descriptions, images, and guides. The user can view all other users' blogs, have a personalized feed through a follow function, or search for specific content. Users can also like and comment on posts in order for the community to thrive.",
   "main": "index.js",
@@ -31,6 +31,9 @@
     "path": "^0.12.7"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2"
+    "body-parser": "^1.20.1",
+    "bootstrap": "^5.2.2",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^8.5.1"
   }
 }
