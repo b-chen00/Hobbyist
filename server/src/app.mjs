@@ -77,20 +77,16 @@ app.post('/api/register', (req, res) => {
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
-                console.log(2);
                 res.json({ message: "Registered"});
             } else {
-                console.log(3);
                 res.json({ message: "Error authentiating"});
             }
         });
     }
 
     function error(err) {
-        console.log(4);
         res.json({ message: "Registration error"});
     }
-    console.log(0);
     auth.register(req.body.username, req.body.password, error, success);
 });
 

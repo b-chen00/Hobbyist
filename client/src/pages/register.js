@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
+import {Link, Routes, Route, Navigate} from 'react-router-dom';
 
 
 const required = (value) => {
@@ -15,15 +15,6 @@ const required = (value) => {
     }
 };
 
-// const validEmail = (value) => {
-//     if (!isEmail(value)) {
-//         return (
-//             <div className="alert alert-danger" role="alert">
-//                 This is not a valid email.
-//             </div>
-//         );
-//     }
-// };
 
 const vusername = (value) => {
     if (value.length < 3 || value.length > 20) {
@@ -36,16 +27,17 @@ const vusername = (value) => {
 };
 
 const vpassword = (value) => {
-    if (value.length < 6 || value.length > 40) {
+    if (value.length < 5 || value.length > 40) {
         return (
             <div className="alert alert-danger" role="alert">
-                The password must be between 6 and 40 characters.
+                The password must be between 5 and 40 characters.
             </div>
         );
     }
 };
 
 const Register = () => {
+    //const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
 
@@ -87,8 +79,16 @@ const Register = () => {
             .then((response) => response.json())
             .then((result) => {
                 console.log(result);
-                setMessage(result);
-                setSuccessful(true);
+                if (result.message !== "Registered"){
+                    console.log("NOT REGISTERED "+ result.message );
+                    setMessage(result.message);
+                    setSuccessful(false);
+                }
+                else{
+                    setMessage(result.message);
+                    setSuccessful(true);
+                    console.log("redirect");
+                }
             });
         }
     };
@@ -96,13 +96,12 @@ const Register = () => {
     return (
         <div className="col-md-12">
             <div className="card card-container">
-                <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                alt="profile-img"
-                className="profile-img-card"
-                />
-
                 <Form onSubmit={handleRegister} ref={form}>
+                    {successful && (
+                        <div>
+                            {username && <Navigate to="/login" />}
+                        </div>
+                    )}
                     {!successful && (
                     <div>
                         <div className="form-group">

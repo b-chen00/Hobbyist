@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -16,14 +16,12 @@ const required = (value) => {
 };
 
 const Login = () => {
-    let navigate = useNavigate();
-
     const form = useRef();
     const checkBtn = useRef();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
 
     const onChangeUsername = (e) => {
@@ -39,24 +37,33 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        setMessage("");
-        setLoading(true);
-
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0){
             fetch('http://localhost:8080/api/login', {
                 method: "POST",
+                mode: 'cors',
                 headers: {
-                    'Content-type': 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(this.state)
+                body: JSON.stringify({
+                    "username": username,
+                    "password": password
+                })
             })
             .then((response) => response.json())
             .then((result) => {
                 console.log(result);
-                setMessage(result);
-                //setSuccessful(true);
+                if (result.message !== "Logged in"){
+                    console.log("Invalid login: "+ result.message );
+                    setMessage(result.message);
+                    setSuccessful(false);
+                }
+                else{
+                    setMessage(result.message);
+                    setSuccessful(true);
+                    console.log("all");
+                }
             });
         }
         else {
@@ -68,35 +75,41 @@ const Login = () => {
         <div className="col-md-12">
             <div className="card card-container">
                 <Form onSubmit={handleLogin} ref={form}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <Input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={username}
-                        validations={[required]}
-                        />
-                    </div>
+                    {successful && (
+                        <div>
+                            {username && <Navigate to="/all" />}
+                        </div>
+                    )}
+                    {!successful && (
+                        <div>
+                            <div className="form-group">
+                                <label htmlFor="username">Username</label>
+                                <Input
+                                type="text"
+                                className="form-control"
+                                name="username"
+                                value={username}
+                                validations={[required]}
+                                onChange={onChangeUsername}
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={password}
-                        validations={[required]}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary btn-block" disabled={loading}>
-                        {loading && (
-                        <span className="spinner-border spinner-border-sm"></span>
-                        )}
-                        <span>Login</span>
-                        </button>
-                    </div>
+                            <div className="form-group">
+                                <label htmlFor="password">Password</label>
+                                <Input
+                                type="password"
+                                className="form-control"
+                                name="password"
+                                value={password}
+                                validations={[required]}
+                                onChange={onChangePassword}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-primary btn-block">Login</button>
+                            </div>
+                        </div>
+                    )}
 
                     {message && (
                         <div className="form-group">
