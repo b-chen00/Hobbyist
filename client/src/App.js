@@ -10,15 +10,25 @@ import Create from './pages/create';
 import Register from './pages/register';
 import Login from './pages/login';
 import Profile from './pages/profile';
-
+import {useAuth} from './AuthContext';
 
 function App() {
-    const [currentUser, setCurrentUser] = useState(undefined);
+    const [username, setUsername] = useState("");
+    const {auth} = useAuth();
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+            setUsername(loggedInUser);
+        }
+     }, []);
 
     const logOut = () => {
-        //AuthService.logout();
+        setUsername("");
+        useAuth.setAuth(false);
+        localStorage.clear();
     };
-
+    console.log(username);
     return (
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
@@ -27,30 +37,31 @@ function App() {
             </Link>
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
+                <Link to={"/all"} className="nav-link">
+                  All
                 </Link>
               </li>
-
-              {currentUser && (
+              {auth && (
                 <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
+                  <Link to={"/create"} className="nav-link">
+                    Create
+                  </Link>
+                </li>
+              )}
+              {auth && (
+                <li className="nav-item">
+                  <Link to={"/profile"} className="nav-link">
+                    Profile
                   </Link>
                 </li>
               )}
             </div>
 
-            {currentUser ? (
+            {auth ? (
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link to={"/profile"} className="nav-link">
-                    {currentUser.username}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <a href="/login" className="nav-link" onClick={logOut}>
-                    LogOut
+                  <a href="/all" className="nav-link" onClick={logOut}>
+                    Log Out
                   </a>
                 </li>
               </div>
@@ -77,6 +88,7 @@ function App() {
               <Route path="/all" element={<All/>} />
               <Route path="/login" element={<Login/>} />
               <Route path="/register" element={<Register/>} />
+              <Route path="/create" element={<Create/>} />
               <Route path="/profile" element={<Profile/>} />
             </Routes>
           </div>

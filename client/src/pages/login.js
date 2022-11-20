@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Navigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import {useAuth} from '../AuthContext';
 
 const required = (value) => {
     if (!value){
@@ -18,11 +18,19 @@ const required = (value) => {
 const Login = () => {
     const form = useRef();
     const checkBtn = useRef();
+    const { setAuth } = useAuth();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
+            setUsername(loggedInUser);
+        }
+     }, []);
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
@@ -62,6 +70,8 @@ const Login = () => {
                 else{
                     setMessage(result.message);
                     setSuccessful(true);
+                    setAuth(true);
+                    localStorage.setItem('user', username);
                     console.log("all");
                 }
             });
