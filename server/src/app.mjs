@@ -43,6 +43,7 @@ app.use((req, res, next) => {
 // });
 
 const Post = mongoose.model('Post');
+const User = mongoose.model('User');
 
 const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME TOO SHORT": "Username or password is too short"};
@@ -99,13 +100,20 @@ app.get('/api/all', (req, res) => {
 
 
 app.post('/api/create', (req, res) => {
-    const newPost = new Post({user: req.session.user._id, content: req.body.describe, title: req.body.title, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
-    newPost.save(function (err){
-        if (err){
-            res.json({ message: "Error creating post " + err});
+    User.findOne({name: req.body.username}, (err, user) => {
+        if (!err && user) {
+            const newPost = new Post({user: user._id, content: req.body.describe, title: req.body.title, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
+            newPost.save(function (err){
+                if (err){
+                    res.json({ message: "Error creating post " + err});
+                }
+                else{
+                    res.json({ message: "Created"});
+                }
+            });
         }
         else{
-            res.json({ message: "Created"});
+            res.json({ message: "Error creating post " + err});
         }
     });
 });

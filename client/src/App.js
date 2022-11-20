@@ -27,6 +27,13 @@ function App() {
         setUsername("");
         useAuth.setAuth(false);
         localStorage.clear();
+        fetch('http://localhost:8080/api/logout', {
+            method: "GET",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
     };
     console.log(username);
     return (
