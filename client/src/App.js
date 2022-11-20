@@ -10,6 +10,7 @@ import Create from './pages/create';
 import Register from './pages/register';
 import Login from './pages/login';
 import Profile from './pages/profile';
+import Post from './pages/post'
 import {useAuth} from './AuthContext';
 
 function App() {
@@ -97,6 +98,7 @@ function App() {
               <Route path="/register" element={<Register/>} />
               <Route path="/create" element={<Create/>} />
               <Route path="/profile" element={<Profile/>} />
+              <Route path="/post/:id" element={<Post/>} />
             </Routes>
           </div>
         </div>

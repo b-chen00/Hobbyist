@@ -93,7 +93,7 @@ app.post('/api/register', (req, res) => {
 
 app.get('/api/all', (req, res) => {
     Post.find({}).sort('-createdAt').populate('user').exec((err, posts) => {
-        console.log(posts);
+        //console.log(posts);
         res.json({posts: posts});
     });
 });
@@ -115,6 +115,14 @@ app.post('/api/create', (req, res) => {
         else{
             res.json({ message: "Error creating post " + err});
         }
+    });
+});
+
+app.post('/api/post', (req, res) => {
+    console.log(req.body.PostId);
+    Post.findOne({_id: req.body.PostId}).populate('comments').populate('user').exec((err, post) => {
+        console.log(post);
+        res.json({post: post});
     });
 });
 

@@ -4,8 +4,10 @@ import { Routes, Route, Link } from "react-router-dom";
 const All = () => {
     const [username, setUsername] = useState("");
     const [posts, setPosts] = useState([]);
+    const [isBusy, setBusy] = useState(true);
 
     useEffect(() => {
+        setBusy(true);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             setUsername(loggedInUser);
@@ -23,6 +25,7 @@ const All = () => {
             for (let i = 0; i < result.posts.length; i++){
                 posts.push(result.posts[i]);
             }
+            setBusy(false);
             console.log(posts);
         });
 
