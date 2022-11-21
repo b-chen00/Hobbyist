@@ -44,6 +44,7 @@ app.use((req, res, next) => {
 
 const Post = mongoose.model('Post');
 const User = mongoose.model('User');
+const Comment = mongoose.model('Comment');
 
 const loginMessages = {"PASSWORDS DO NOT MATCH": 'Incorrect password', "USER NOT FOUND": 'User doesn\'t exist'};
 const registrationMessages = {"USERNAME ALREADY EXISTS": "Username already exists", "USERNAME TOO SHORT": "Username or password is too short"};
@@ -74,7 +75,7 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/register', (req, res) => {
     // Referencing authentiation from homework #5
-    console.log(req.body);
+    //console.log(req.body);
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
@@ -118,10 +119,40 @@ app.post('/api/create', (req, res) => {
     });
 });
 
+app.post('/api/createComment', (req, res) =>{
+    User.findOne({name: req.body.username}, (err, user) => {
+        if (!err && user){
+            Post.findOne({_id: req.body.postID}, (err, post) => {
+                if (!err && post) {
+                    const newComment = new Comment({user: user._id, content: req.body.comment, post: post._id});
+                    //console.log("HERE  ==>  " + newComment._id);
+                    post.comments.unshift(newComment._id);
+                    post.save();
+                    console.log(post.comments);
+                    newComment.save(function (err){
+                        if (err){
+                            res.json({ message: "Error creating comment " + err});
+                        }
+                        else{
+                            res.json({ message: "Created"});
+                        }
+                    });
+                }
+                else{
+                    res.json({ message: "Error creating comment " + err});
+                }
+            })
+        }
+        else{
+            es.json({ message: "Error creating comment " + err});
+        }
+    });
+})
+
 app.post('/api/post', (req, res) => {
-    console.log(req.body.PostId);
-    Post.findOne({_id: req.body.PostId}).populate('comments').populate('user').exec((err, post) => {
-        console.log(post);
+    //console.log(req.body.PostId);
+    Post.findOne({_id: req.body.PostId}).populate({path: 'comments', populate: {path: 'user'}}).populate('user').exec((err, post) => {
+        console.log(post.comments);
         res.json({post: post});
     });
 });
