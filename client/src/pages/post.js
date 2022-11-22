@@ -48,12 +48,8 @@ const Post = () => {
         })
         .then((response) => response.json())
         .then((result) => {
-            //setPost(result.post);
-            //post = result.post;
             setPost(result.post);
             setBusy(false);
-            //onsole.log(result.post);
-            //console.log(post);
         });
 
     }, []);
@@ -82,14 +78,12 @@ const Post = () => {
             })
             .then((response) => response.json())
             .then((result) => {
-                //console.log(result);
                 if (result.message !== "Created"){
                     setMessage(result.message);
                     setSuccessful(false);
                 }
                 else{
                     setMessage(result.message);
-                    //post.comments.unshift({user: localStorage.getItem("user"), content: comment});
                     fetch('http://localhost:8080/api/post', {
                         method: "POST",
                         mode: 'cors',
@@ -102,8 +96,6 @@ const Post = () => {
                     })
                     .then((response) => response.json())
                     .then((result) => {
-                        //setPost(result.post);
-                        //post = result.post;
                         setPost(result.post);
                         setBusy(false);
                         console.log(result.post);
@@ -134,7 +126,7 @@ const Post = () => {
                 </div>
             )}
             {auth && (
-                <Form onSubmit={handleComment} ref={form}>
+                <Form onSubmit={handleComment} ref={form} class="form-group">
                     <div>
                         <div className="form-group">
                             <label htmlFor="comment">Comment</label>

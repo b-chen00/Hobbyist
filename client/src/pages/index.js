@@ -22,6 +22,9 @@ const All = () => {
         })
         .then((response) => response.json())
         .then((result) => {
+            while(posts.length > 0) {
+                posts.pop();
+            }
             for (let i = 0; i < result.posts.length; i++){
                 posts.push(result.posts[i]);
             }
@@ -37,15 +40,23 @@ const All = () => {
         <div>
             <h1>This is the all page</h1>
             {posts.map(p => (
-                <div>
-                    <p>
-                    <Link to ={`/post/${p._id}`}>
-                    {p.title}
-                    </Link>
-                    </p>
-                    <p>{p.category}</p>
-                    <p>Created by {p.user.name} on {p.createdAt}</p>
-                    <p>{p.content}</p>
+                <div class="card mt-5 shadow p-3 mb-5 bg-white rounded">
+
+                <h5 class="card-header text-center bg-transparent">{p.category}</h5>
+
+                <div class="card-body">
+                <h3 class="card-title text-center">{p.title}</h3>
+                <h6 class="card-title text-center">{p.user.name}</h6>
+                <p class="card-text text-center">{p.content}</p>
+                <p class="card-text text-center">
+                <Link to ={`/post/${p._id}`}>
+                    <input type="button" value="Comment" class="btn btn-outline-primary"/>
+                </Link>
+                </p>
+                </div>
+                <div class="card-footer text-muted pull-right text-end bg-transparent">
+                    {p.createdAt}
+                </div>
                 </div>
             ))}
         </div>

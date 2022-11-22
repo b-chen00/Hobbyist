@@ -36,14 +36,12 @@ function App() {
             }
         })
     };
-    console.log(username);
+
     return (
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <Link to={"/"} className="navbar-brand">
-              Link to /
-            </Link>
-            <div className="navbar-nav mr-auto">
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="mx-auto order-0">
+            <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/all"} className="nav-link">
                   All
@@ -63,8 +61,8 @@ function App() {
                   </Link>
                 </li>
               )}
+            </ul>
             </div>
-
             {auth ? (
               <div className="navbar-nav ml-auto">
                 <li className="nav-item">
