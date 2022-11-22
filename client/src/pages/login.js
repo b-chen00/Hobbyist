@@ -48,7 +48,7 @@ const Login = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0){
-            fetch('http://localhost:8080/api/login', {
+            fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/login', {
                 method: "POST",
                 mode: 'cors',
                 headers: {

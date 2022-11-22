@@ -28,7 +28,7 @@ function App() {
         setUsername("");
         useAuth.setAuth(false);
         localStorage.clear();
-        fetch('http://localhost:8080/api/logout', {
+        fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/logout', {
             method: "GET",
             mode: 'cors',
             headers: {

@@ -72,7 +72,7 @@ const Register = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            fetch('http://localhost:8080/api/register', {
+            fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:3000/api/register', {
                 method: "POST",
                 mode: 'cors',
                 headers: {

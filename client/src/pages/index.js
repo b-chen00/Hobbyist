@@ -13,7 +13,7 @@ const All = () => {
             setUsername(loggedInUser);
         }
 
-        fetch('http://localhost:8080/api/all', {
+        fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/all', {
             method: "GET",
             mode: 'cors',
             headers: {
