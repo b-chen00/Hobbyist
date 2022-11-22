@@ -164,6 +164,6 @@ app.get('/api/logout', (req, res) => {
     auth.endAuthenticatedSession(req, error)
 });
 
-app.listen(process.env.PORT || 8080, () =>{
+app.listen(8080, () =>{
     console.log('LISTENING');
 });
