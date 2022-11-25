@@ -7,7 +7,8 @@ import session from 'express-session';
 import * as auth from './auth.mjs';
 import cors from 'cors';
 import bodyParser from 'body-parser'
-
+import dotenv from 'dotenv'
+dotenv.config()
 
 const db2 = mongoose.connection;
 db2.on("error", console.error.bind(console, "connection error: "));
@@ -25,7 +26,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.urlencoded({ extended: false }));
 app.use(session({
-    secret: 'feline good',
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
 }));

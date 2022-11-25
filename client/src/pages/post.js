@@ -36,7 +36,7 @@ const Post = () => {
             setUsername(loggedInUser);
         }
 
-        fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/post', {
+        fetch(process.env.REACT_APP_BASE_API_URL + '/api/post', {
             method: "POST",
             mode: 'cors',
             headers: {
@@ -64,7 +64,7 @@ const Post = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0){
-            fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/createComment', {
+            fetch(process.env.REACT_APP_BASE_API_URL + '/api/createComment', {
                 method: "POST",
                 mode: 'cors',
                 headers: {
@@ -84,7 +84,7 @@ const Post = () => {
                 }
                 else{
                     setMessage(result.message);
-                    fetch('http://localhost:8080/api/post', {
+                    fetch(process.env.REACT_APP_BASE_API_URL + '/api/post', {
                         method: "POST",
                         mode: 'cors',
                         headers: {

@@ -1,8 +1,9 @@
 import * as mongoose from 'mongoose';
 import mongooseSlugPlugin from 'mongoose-slug-plugin';
+import dotenv from 'dotenv'
+dotenv.config()
 
-mongoose.connect('mongodb+srv://bchen00:0vy9b3UsWfwT6C1z@hobbist.r2own3d.mongodb.net/?retryWrites=true&w=majority');
-
+mongoose.connect('mongodb+srv://' + process.env.MONGO_USERNAME + ':' + process.env.MONGO_PASSWORD + '@hobbist.r2own3d.mongodb.net/?retryWrites=true&w=majority');
 
 
 const UserSchema = new mongoose.Schema({

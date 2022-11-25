@@ -18,7 +18,7 @@ const Profile = () => {
         }
         console.log(loggedInUser);
         console.log(username);
-        fetch('http://localhost:8080/api/myPosts', {
+        fetch(process.env.REACT_APP_BASE_API_URL + '/api/myPosts', {
             method: "POST",
             mode: 'cors',
             headers: {

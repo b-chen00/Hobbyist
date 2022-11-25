@@ -50,15 +50,15 @@ const Create = () => {
 
          form.current.validateAll();
          if (checkBtn.current.context._errors.length === 0) {
-             fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/create', {
+             fetch(process.env.REACT_APP_BASE_API_URL + '/api/create', {
                  method: "POST",
                  mode: 'cors',
                  headers: {
                      'Content-Type': 'application/json'
                  },
                  body: JSON.stringify({
-                     "describe": title,
-                     "title": description,
+                     "describe": description,
+                     "title": title,
                      "category": category,
                      "username": username
                  })

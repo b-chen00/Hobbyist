@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import {useAuth} from '../AuthContext';
 
 const All = () => {
     const [username, setUsername] = useState("");
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
+    const {auth} = useAuth();
 
     useEffect(() => {
         setBusy(true);
@@ -13,7 +15,7 @@ const All = () => {
             setUsername(loggedInUser);
         }
 
-        fetch('http://ec2-18-222-31-37.us-east-2.compute.amazonaws.com:8080/api/all', {
+        fetch(process.env.REACT_APP_BASE_API_URL + '/api/all', {
             method: "GET",
             mode: 'cors',
             headers: {
@@ -32,7 +34,7 @@ const All = () => {
             console.log(posts);
         });
 
-     }, []);
+    }, [username]);
 
 
     return (
@@ -48,9 +50,10 @@ const All = () => {
                 <h6 class="card-title text-center">{p.user.name}</h6>
                 <p class="card-text text-center">{p.content}</p>
                 <p class="card-text text-center">
-                <Link to ={`/post/${p._id}`}>
-                    <input type="button" value="Comment" class="btn btn-outline-primary"/>
-                </Link>
+                {auth && (<Link to ={`/post/${p._id}`}>
+                        <input type="button" value="Comment" class="btn btn-outline-primary"/>
+                    </Link>
+                )}
                 </p>
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
