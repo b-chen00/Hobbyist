@@ -99,6 +99,20 @@ app.get('/api/all', (req, res) => {
     });
 });
 
+app.post('/api/myPosts', (req, res) => {
+    console.log(req.body.username)
+    User.findOne({name: req.body.username}, (err, user) => {
+        if (!err && user){
+            Post.find({user: user._id}).populate('user').exec((err, posts) => {
+                res.json({posts: posts});
+            })
+        }
+        else{
+            res.json({ message: "No user found: " + err});
+        }
+    });
+});
+
 
 app.post('/api/create', (req, res) => {
     User.findOne({name: req.body.username}, (err, user) => {

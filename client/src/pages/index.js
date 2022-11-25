@@ -34,7 +34,6 @@ const All = () => {
 
      }, []);
 
-     console.log(username);
 
     return (
         <div>
