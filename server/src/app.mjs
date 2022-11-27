@@ -180,21 +180,6 @@ app.get('/api/logout', (req, res) => {
 });
 
 app.post('/api/like', (req, res) => {
-    // User.findOne({name: req.body.username}, (err, user) => {
-    //     Post.updateOne({_id: req.body.PostId}, {
-    //         $push: {
-    //             likes: user._id
-    //         }
-    //     }, (err, doc) => {
-    //         if (!err){
-    //             res.json({message: 'success'});
-    //         }
-    //         else{
-    //             res.json({message: 'error liking' + err});
-    //         }
-    //     });
-    // });
-
     User.findOne({name: req.body.username}, (err, user) => {
         Post.findOne({_id: req.body.postId}, (err, doc) => {
             if (!err){
@@ -212,9 +197,9 @@ app.post('/api/like', (req, res) => {
 
 app.post('/api/unlike', (req, res) => {
     User.findOne({name: req.body.username}, (err, user) => {
-        Post.updateOne({_id: req.body.postId}, {
-            $pullAll: {
-                likes: [user._id]
+        Post.update({_id: req.body.postId}, {
+            $pull: {
+                likes: user._id
             }
         }, (err, doc) => {
             if (!err){
