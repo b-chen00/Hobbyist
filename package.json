@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/nyu-csci-ua-0467-001-002-fall-2022/final-project-brndnchn#readme",
   "dependencies": {
+    "classnames": "^2.3.2",
     "concurrently": "^7.5.0"
   }
 }

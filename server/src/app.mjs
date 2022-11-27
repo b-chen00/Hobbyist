@@ -94,7 +94,7 @@ app.post('/api/register', (req, res) => {
 });
 
 app.get('/api/all', (req, res) => {
-    Post.find({}).sort('-createdAt').populate('user').exec((err, posts) => {
+    Post.find({}).sort('-createdAt').populate('user').populate('likes').exec((err, posts) => {
         //console.log(posts);
         res.json({posts: posts});
     });
@@ -178,6 +178,54 @@ app.get('/api/logout', (req, res) => {
     };
     auth.endAuthenticatedSession(req, error)
 });
+
+app.post('/api/like', (req, res) => {
+    // User.findOne({name: req.body.username}, (err, user) => {
+    //     Post.updateOne({_id: req.body.PostId}, {
+    //         $push: {
+    //             likes: user._id
+    //         }
+    //     }, (err, doc) => {
+    //         if (!err){
+    //             res.json({message: 'success'});
+    //         }
+    //         else{
+    //             res.json({message: 'error liking' + err});
+    //         }
+    //     });
+    // });
+
+    User.findOne({name: req.body.username}, (err, user) => {
+        Post.findOne({_id: req.body.postId}, (err, doc) => {
+            if (!err){
+                console.log(doc);
+                doc.likes.push(user._id);
+                doc.save();
+                res.json({message: 'success'});
+            }
+            else{
+                res.json({message: 'error liking' + err});
+            }
+        });
+    });
+});
+
+app.post('/api/unlike', (req, res) => {
+    User.findOne({name: req.body.username}, (err, user) => {
+        Post.updateOne({_id: req.body.postId}, {
+            $pullAll: {
+                likes: [user._id]
+            }
+        }, (err, doc) => {
+            if (!err){
+                res.json({message: 'success'});
+            }
+            else{
+                res.json({message: 'error unliking: ' + err});
+            }
+        });
+    });
+})
 
 app.listen(8080, () =>{
     console.log('LISTENING');
