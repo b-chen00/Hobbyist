@@ -37,25 +37,26 @@ function App() {
         })
     };
 
+
     return (
-        <div>
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div style={{backgroundColor: 'white', height: '100%'}}>
+          <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#54577C'}}>
             <div class="mx-auto order-0">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
+              <li className="nav-item h4">
                 <Link to={"/all"} className="nav-link">
                   All
                 </Link>
               </li>
               {auth && (
-                <li className="nav-item">
+                <li className="nav-item h4">
                   <Link to={"/create"} className="nav-link">
                     Create
                   </Link>
                 </li>
               )}
               {auth && (
-                <li className="nav-item">
+                <li className="nav-item h4">
                   <Link to={"/profile"} className="nav-link">
                     Profile
                   </Link>
@@ -65,7 +66,7 @@ function App() {
             </div>
             {auth ? (
               <div className="navbar-nav ml-auto">
-                <li className="nav-item">
+                <li className="nav-item h4">
                   <a href="/all" className="nav-link" onClick={logOut}>
                     Log Out
                   </a>
@@ -73,13 +74,13 @@ function App() {
               </div>
             ) : (
               <div className="navbar-nav ml-auto">
-                <li className="nav-item">
+                <li className="nav-item h4">
                   <Link to={"/login"} className="nav-link">
                     Login
                   </Link>
                 </li>
 
-                <li className="nav-item">
+                <li className="nav-item h4">
                   <Link to={"/register"} className="nav-link">
                     Sign Up
                   </Link>
@@ -88,7 +89,7 @@ function App() {
             )}
           </nav>
 
-          <div className="container mt-3">
+          <div className="container mt-3 h-100">
             <Routes>
               <Route path="/" element={<All/>} />
               <Route path="/all" element={<All/>} />

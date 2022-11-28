@@ -11,7 +11,8 @@ const All = () => {
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
     const {auth} = useAuth();
-    const [liked, setLiked] = useState(false);
+    const [likeChanged, setLikeChanged] = useState(false);
+    const [unlikeChanged, setUnlikeChanged] = useState(false);
     const [clicked, setClicked] = useState(false);
 
 
@@ -31,9 +32,23 @@ const All = () => {
             })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
-                setLiked(!liked);
-                console.log(liked);
+                setLikeChanged(true);
+                fetch(process.env.REACT_APP_BASE_API_URL + '/api/all', {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    while(posts.length > 0) {
+                        posts.pop();
+                    }
+                    for (let i = 0; i < result.posts.length; i++){
+                        posts.push(result.posts[i]);
+                    }
+                });
             });
         }
         else {
@@ -50,15 +65,31 @@ const All = () => {
             })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
-                setLiked(!liked);
-                console.log(liked);
+                setUnlikeChanged(true);
+                fetch(process.env.REACT_APP_BASE_API_URL + '/api/all', {
+                    method: "GET",
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then((response) => response.json())
+                .then((result) => {
+                    while(posts.length > 0) {
+                        posts.pop();
+                    }
+                    for (let i = 0; i < result.posts.length; i++){
+                        posts.push(result.posts[i]);
+                    }
+                });
             });
         }
     };
 
     useEffect(() => {
         setBusy(true);
+        setLikeChanged(false);
+        setUnlikeChanged(false);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             setUsername(loggedInUser);
@@ -83,16 +114,16 @@ const All = () => {
             console.log(posts);
         });
 
-    }, [username]);
+    }, [posts, username, likeChanged, unlikeChanged]);
 
 
     return (
         <div>
-            <h1>This is the all page</h1>
+            <div class="h1" style={{color: '#4a7b9d'}}><center>All Posts</center></div>
             {posts.map(p => (
 
 
-                <div class="card mt-5 shadow p-3 mb-5 bg-white rounded">
+                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
 
                 <h5 class="card-header text-center bg-transparent">{p.category}</h5>
 
@@ -110,6 +141,7 @@ const All = () => {
                 </p>
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
+                    {p.likes.length}
                     {auth && p.likes.filter(e => e.name === username).length == 0 && (<button
                           onClick={() => handleLike(p._id, 'like')}
                           class='btn btn-secondary mx-2'

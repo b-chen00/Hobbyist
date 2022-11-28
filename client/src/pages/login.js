@@ -82,8 +82,11 @@ const Login = () => {
     };
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
+        <div className="h-50 d-flex align-items-center justify-content-center">
+            <div className="card card-container col-md-6 mx-auto" style={{backgroundColor: '#C0E0DE'}}>
+            <h3 class="banner mt-3 text-center">
+                Login
+            </h3>
                 <Form onSubmit={handleLogin} ref={form}>
                     {successful && (
                         <div>
@@ -91,12 +94,12 @@ const Login = () => {
                         </div>
                     )}
                     {!successful && (
-                        <div>
-                            <div className="form-group">
+                        <center>
+                            <div className="form-group col-md-6">
                                 <label htmlFor="username">Username</label>
                                 <Input
                                 type="text"
-                                className="form-control"
+                                className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                                 name="username"
                                 value={username}
                                 validations={[required]}
@@ -104,11 +107,11 @@ const Login = () => {
                                 />
                             </div>
 
-                            <div className="form-group">
+                            <div className="form-group col-md-6">
                                 <label htmlFor="password">Password</label>
                                 <Input
                                 type="password"
-                                className="form-control"
+                                className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                                 name="password"
                                 value={password}
                                 validations={[required]}
@@ -116,9 +119,9 @@ const Login = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block">Login</button>
+                                <button className="btn btn-primary btn-block mt-3 mb-4">Login</button>
                             </div>
-                        </div>
+                        </center>
                     )}
 
                     {message && (
