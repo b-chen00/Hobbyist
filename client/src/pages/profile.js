@@ -47,9 +47,9 @@ const Profile = () => {
 
     return (
         <div>
-            <h1>Profile</h1>
+            <div class="h1" style={{color: '#4a7b9d'}}><center>Your Posts</center></div>
             {posts && posts.map(p => (
-                <div class="card mt-5 shadow p-3 mb-5 bg-white rounded">
+                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
 
                 <h5 class="card-header text-center bg-transparent">{p.category}</h5>
 

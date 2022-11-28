@@ -84,9 +84,9 @@ const Login = () => {
     return (
         <div className="h-50 d-flex align-items-center justify-content-center">
             <div className="card card-container col-md-6 mx-auto" style={{backgroundColor: '#C0E0DE'}}>
-            <h3 class="banner mt-3 text-center">
-                Login
-            </h3>
+                <h3 class="banner mt-3 text-center">
+                    Login
+                </h3>
                 <Form onSubmit={handleLogin} ref={form}>
                     {successful && (
                         <div>
@@ -119,7 +119,7 @@ const Login = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <button className="btn btn-primary btn-block mt-3 mb-4">Login</button>
+                                <button className="btn btn-outline-success btn-block mt-3 mb-4">Login</button>
                             </div>
                         </center>
                     )}
