@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 const required = (value) => {
@@ -78,42 +79,51 @@ const Create = () => {
      };
 
     return (
-    <div>
-        <h2>Add New Post</h2>
-        <Form onSubmit={handleCreate} ref={form}>
-            <div>
-                <label htmlFor="title">Title:</label>
-                <input type="text" id="title" name="title"
-                validations={[required]}
-                onChange={onChangeTitle}/>
-            </div>
-            <div>
-                <label htmlFor="title">Description:</label>
-                <input type="text" id="describe" name="describe"
-                validations={[required]}
-                onChange={onChangeDescription}/>
-            </div>
-            <div>
-                <label htmlFor="title">Category:</label>
-                <input type="text" id="category" name="category"
-                validations={[required]}
-                onChange={onChangeCategory}/>
-            </div>
-            <input type="submit" value="Create"/>
+        <div className="h-75 d-flex align-items-center justify-content-center">
+            <div className="card card-container col-md-6 mx-auto" style={{backgroundColor: '#C0E0DE'}}>
+                <h3 class="banner mt-3 text-center">
+                    Create a Post
+                </h3>
+                <Form onSubmit={handleCreate} ref={form}>
+                    <center>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="title">Title:</label>
+                        <Input type="text" id="title" name="title"
+                        className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
+                        validations={[required]}
+                        onChange={onChangeTitle}/>
+                    </div>
+                    <div className="form-group col-md-10">
+                        <label htmlFor="title">Description:</label>
+                        <textarea rows="10" id="describe" name="describe"
+                        className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
+                        validations={[required]}
+                        onChange={onChangeDescription}/>
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="title">Category:</label>
+                        <Input type="text" id="category" name="category"
+                        className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
+                        validations={[required]}
+                        onChange={onChangeCategory}/>
+                    </div>
+                    <input type="submit" class="btn btn-outline-success btn-block mt-3 mb-4" value="Create"/>
 
-            {message && (
-            <div className="form-group">
-                <div
-                    className={ successful ? "alert alert-success" : "alert alert-danger" }
-                    role="alert"
-                    >
-                    {message}
-                </div>
+                    {message && (
+                    <div className="form-group col-md-6">
+                        <div
+                            className={ successful ? "alert alert-success" : "alert alert-danger" }
+                            role="alert"
+                            >
+                            {message}
+                        </div>
+                    </div>
+                    )}
+                    <CheckButton style={{ display: "none" }} ref={checkBtn} />
+                    </center>
+                </Form>
             </div>
-            )}
-            <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
-    </div>
+        </div>
     );
 };
 
