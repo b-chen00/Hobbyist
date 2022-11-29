@@ -68,7 +68,7 @@ app.post('/api/login', (req, res) => {
     }
 
     function error(err) {
-        res.json({ message: "Loggin unsuccessful " + err});
+        res.json({ message: "Logging unsuccessful " + err});
     }
 
     auth.login(req.body.username, req.body.password, error, success);

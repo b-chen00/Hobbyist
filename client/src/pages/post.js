@@ -114,42 +114,45 @@ const Post = () => {
 
     return (
         <div>
-            <h1>Post</h1>
             {post && (
-                <div>
-                    <p>
-                    {post.title}
-                    </p>
-                    <p>{post.category}</p>
-                    <p>Created by {post.user.name} on {post.createdAt}</p>
-                    <p>{post.content}</p>
+                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
+
+                <h5 class="card-header text-center bg-transparent">{post.category}</h5>
+
+                <div class="card-body">
+                <h3 class="card-title text-center">{post.title}
+
+                </h3>
+                <h6 class="card-title text-center">{post.user.name}</h6>
+                <p class="card-text text-center">{post.content}</p>
+                </div>
                 </div>
             )}
             {auth && (
-                <Form onSubmit={handleComment} ref={form} class="form-group">
-                    <div>
-                        <div className="form-group">
-                            <label htmlFor="comment">Comment</label>
-                            <Input
-                            type="text"
-                            className="form-control"
-                            name="comment"
-                            validations={[required]}
-                            onChange={onChangeComment}
-                            />
-                        </div>
+                <Form onSubmit={handleComment} ref={form} className="form-inline">
+                    <div className='h2 d-inline-block'><label htmlFor="comment">{username}</label></div>
+                    <div className="form-group col-md-8 d-inline-block">
+                        <Input
+                        type="text"
+                        className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mx-3"
+                        name="comment"
+                        validations={[required]}
+                        onChange={onChangeComment}
+                        />
+                    </div>
 
-                        <div className="form-group">
-                            <button className="btn btn-primary btn-block">Submit</button>
-                        </div>
+                    <div className="form-group d-inline-block">
+                        <button className="btn btn-success btn-block mx-5">Submit</button>
                     </div>
                     <CheckButton style={{ display: "none" }} ref={checkBtn} />
                 </Form>
             )}
-            Comments:
             {(comment || post) && (post.comments.map(c => (
-                <div>
-                    <p>{c.content} - {c.user.name}</p>
+
+                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: 'white'}}>
+                    <div class="card-body">
+                        <p class="card-text">{c.user.name}: {c.content}</p>
+                    </div>
                 </div>
             )))}
 
