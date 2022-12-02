@@ -108,6 +108,12 @@ const Post = () => {
         }
     };
 
+    if (!auth) return (
+        <div>
+            <Navigate to="/login" />
+        </div>
+    )
+
     return (
         <div>
             {post && (

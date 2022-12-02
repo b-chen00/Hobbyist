@@ -6,20 +6,24 @@ import Create from './pages/create';
 import Register from './pages/register';
 import Login from './pages/login';
 import Profile from './pages/profile';
-import Post from './pages/post'
+import Post from './pages/post';
+import Category from './pages/category';
 import {useAuth} from './AuthContext';
 
 function App() {
     const navigate = useNavigate();
     const [username, setUsername] = useState(localStorage.getItem("user") || "");
     const {auth, setAuth} = useAuth();
+    const [isBusy, setBusy] = useState(true);
 
     useEffect(() => {
+        setBusy(!isBusy);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             setUsername(loggedInUser);
             setAuth(true)
         }
+        setBusy(!isBusy);
     }, [username, setAuth]);
 
     const logOut = (e) => {
@@ -64,6 +68,13 @@ function App() {
                                 </Link>
                             </li>
                         )}
+                        {auth && (
+                            <li className="nav-item h4">
+                                <Link to={"/category"} className="nav-link">
+                                    Category
+                                </Link>
+                            </li>
+                        )}
                     </ul>
                 </div>
                 {auth ? (
@@ -103,6 +114,7 @@ function App() {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/register" element={<Register/>} />
                 <Route path="/create" element={<Create/>} />
+                <Route path="/category" element={<Category/>} />
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/post/:id" element={<Post/>} />
             </Routes>

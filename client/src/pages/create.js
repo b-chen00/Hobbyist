@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import {useAuth} from '../AuthContext';
+import { Navigate } from 'react-router-dom';
 import './styles.css';
 
 const required = (value) => {
-    if (!value && value !== "") {
+    if (!value || value !== "") {
         return (
             <div className="alert alert-danger" role="alert">
                 This field is required!
@@ -23,6 +25,7 @@ const Create = () => {
     const [message, setMessage] = useState("");
     const [successful, setSuccessful] = useState(false);
     const form = useRef();
+    const {auth} = useAuth();
     const checkBtn = useRef();
 
     useEffect(() => {
@@ -80,6 +83,12 @@ const Create = () => {
              });
          }
      };
+
+     if (!auth) return (
+         <div>
+             <Navigate to="/login" />
+         </div>
+     )
 
     return (
         <div className="h-75 d-flex align-items-center justify-content-center">

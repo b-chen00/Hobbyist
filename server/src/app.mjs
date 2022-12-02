@@ -76,7 +76,6 @@ app.post('/api/login', (req, res) => {
 
 app.post('/api/register', (req, res) => {
     // Referencing authentiation from homework #5
-    //console.log(req.body);
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
@@ -95,13 +94,20 @@ app.post('/api/register', (req, res) => {
 
 app.get('/api/all', (req, res) => {
     Post.find({}).sort('-createdAt').populate('user').populate('likes').exec((err, posts) => {
-        //console.log(posts);
+        res.json({posts: posts});
+    });
+});
+
+app.post('/api/category', (req, res) => {
+    Post.find({category: req.body.category}).sort('-createdAt').populate('user').populate('likes').exec((err, posts) => {
+        if (err){
+            console.log(err);
+        }
         res.json({posts: posts});
     });
 });
 
 app.post('/api/myPosts', (req, res) => {
-    console.log(req.body.username)
     User.findOne({name: req.body.username}, (err, user) => {
         if (!err && user){
             Post.find({user: user._id}).populate('user').exec((err, posts) => {
@@ -155,7 +161,6 @@ app.post('/api/createComment', (req, res) =>{
                     const newComment = new Comment({user: user._id, content: req.body.comment, post: post._id});
                     post.comments.unshift(newComment._id);
                     post.save();
-                    console.log(post.comments);
                     newComment.save(function (err){
                         if (err){
                             res.json({ message: "Error creating comment " + err});
@@ -177,9 +182,7 @@ app.post('/api/createComment', (req, res) =>{
 })
 
 app.post('/api/post', (req, res) => {
-    //console.log(req.body.PostId);
     Post.findOne({_id: req.body.PostId}).populate({path: 'comments', populate: {path: 'user'}}).populate('user').exec((err, post) => {
-        console.log(post.comments);
         res.json({post: post});
     });
 });
@@ -195,7 +198,6 @@ app.post('/api/like', (req, res) => {
     User.findOne({name: req.body.username}, (err, user) => {
         Post.findOne({_id: req.body.postId}, (err, doc) => {
             if (!err){
-                console.log(doc);
                 doc.likes.push(user._id);
                 doc.save();
                 res.json({message: 'success'});

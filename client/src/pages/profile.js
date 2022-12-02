@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate } from 'react-router-dom';
 import {useAuth} from '../AuthContext';
 
 const Profile = () => {
@@ -64,6 +65,12 @@ const Profile = () => {
         });
 
     }, [username, posts, postsChanged]);
+
+    if (!auth) return (
+        <div>
+            <Navigate to="/login" />
+        </div>
+    )
 
     return (
         <div>
