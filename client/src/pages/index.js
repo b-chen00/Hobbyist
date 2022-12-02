@@ -139,7 +139,7 @@ const All = () => {
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
                     {p.likes.length}
-                    {auth && p.likes.filter(e => e.name === username).length == 0 && (<button
+                    {auth && p.likes.filter(e => e.name === username).length === 0 && (<button
                           onClick={() => handleLike(p._id, 'like')}
                           class='btn btn-secondary mx-2'
                         >

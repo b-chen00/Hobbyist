@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import './App.css';
 import All from './pages';
 import Create from './pages/create';
@@ -11,7 +11,7 @@ import {useAuth} from './AuthContext';
 
 function App() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(localStorage.getItem("user") || "");
     const {auth, setAuth} = useAuth();
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function App() {
             setUsername(loggedInUser);
             setAuth(true)
         }
-     }, []);
+    }, [username, setAuth]);
 
     const logOut = (e) => {
         e.preventDefault();

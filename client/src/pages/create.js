@@ -5,7 +5,7 @@ import CheckButton from "react-validation/build/button";
 import './styles.css';
 
 const required = (value) => {
-    if (!value) {
+    if (!value && value !== "") {
         return (
             <div className="alert alert-danger" role="alert">
                 This field is required!
@@ -74,6 +74,9 @@ const Create = () => {
                      setSuccessful(true);
                  }
                  setMessage(result.message);
+                 setTitle("");
+                 setDescription("");
+                 setCategory("");
              });
          }
      };
@@ -88,21 +91,21 @@ const Create = () => {
                     <center>
                     <div className="form-group col-md-6">
                         <label htmlFor="title">Title:</label>
-                        <Input type="text" id="title" name="title"
+                        <Input type="text" id="title" name="title" value={title}
                         className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                         validations={[required]}
                         onChange={onChangeTitle}/>
                     </div>
                     <div className="form-group col-md-10">
-                        <label htmlFor="title">Description:</label>
-                        <textarea rows="10" id="describe" name="describe"
+                        <label htmlFor="describe">Description:</label>
+                        <textarea rows="10" id="describe" name="describe" value={description}
                         className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                         validations={[required]}
                         onChange={onChangeDescription}/>
                     </div>
                     <div className="form-group col-md-6">
-                        <label htmlFor="title">Category:</label>
-                        <Input type="text" id="category" name="category"
+                        <label htmlFor="category">Category:</label>
+                        <Input type="text" id="category" name="category" value={category}
                         className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                         validations={[required]}
                         onChange={onChangeCategory}/>
