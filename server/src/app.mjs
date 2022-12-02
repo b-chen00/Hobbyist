@@ -68,7 +68,7 @@ app.post('/api/login', (req, res) => {
     }
 
     function error(err) {
-        res.json({ message: "Logging unsuccessful " + err});
+        res.json({ message: "Login unsuccessful " + err.message});
     }
 
     auth.login(req.body.username, req.body.password, error, success);
@@ -132,6 +132,17 @@ app.post('/api/create', (req, res) => {
             res.json({ message: "Error creating post " + err});
         }
     });
+});
+
+app.post('/api/delete', (req, res) => {
+    Post.deleteOne({_id: req.body.postId}, (err) => {
+        if (err){
+            res.json({message: "Error in deleting: " + err})
+        }
+        else{
+            res.json({message: "Deleted"})
+        }
+    })
 });
 
 app.post('/api/createComment', (req, res) =>{

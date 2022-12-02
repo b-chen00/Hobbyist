@@ -5,16 +5,40 @@ const Profile = () => {
     const [username, setUsername] = useState("");
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
-    const {auth} = useAuth();
+    const {auth, setAuth} = useAuth();
+    const [postsChanged, setPostsChanged] = useState(false);
+
+    const handleDelete = (postId) => {
+        //e.preventDefault();
+        fetch(process.env.REACT_APP_BASE_API_URL + '/api/delete', {
+            method: "POST",
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "postId": postId
+            })
+        })
+        .then((response) => response.json())
+        .then((result) => {
+            setPostsChanged(true)
+            while(posts.length > 0) {
+                posts.pop();
+            }
+            for (let i = 0; i < result.posts.length; i++){
+                posts.push(result.posts[i]);
+            }
+        });
+    };
 
     useEffect(() => {
+        setPostsChanged(false);
         setBusy(true);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            console.log("REACHED");
-            console.log(loggedInUser);
             setUsername(loggedInUser);
-            console.log(username);
+            setAuth(true)
         }
         console.log(loggedInUser);
         console.log(username);
@@ -43,7 +67,7 @@ const Profile = () => {
             }
         });
 
-    }, [username]);
+    }, [username, posts, postsChanged]);
 
     return (
         <div>
@@ -51,7 +75,7 @@ const Profile = () => {
             {posts && posts.map(p => (
                 <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
 
-                <h5 class="card-header text-center bg-transparent">{p.category}</h5>
+                <h5 class="card-header text-center bg-transparent">{p.category} <button type="button" class="btn-close float-end" aria-label="Close" onClick={() => handleDelete(p._id)}></button></h5>
 
                 <div class="card-body">
                 <h3 class="card-title text-center">{p.title}</h3>

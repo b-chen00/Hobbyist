@@ -114,7 +114,7 @@ const All = () => {
             console.log(posts);
         });
 
-    }, [posts, username, likeChanged, unlikeChanged]);
+    }, [posts, username, likeChanged, unlikeChanged, auth]);
 
 
     return (

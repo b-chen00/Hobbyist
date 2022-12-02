@@ -14,20 +14,10 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const isAuth = async () => {
-      // try {
-      //   const res await axios.get(
-      //     'http://localhost:8080/api/logged-user/',
-      //     { withCredentials: true }
-      //   );
-      //
-      //   setUser(res.data);
-      // } catch(error) {
-      //   setUser(null);
-      // };
-      const loggedInUser = localStorage.getItem("user");
-      if (loggedInUser) {
+        const loggedInUser = localStorage.getItem("user");
+        if (loggedInUser) {
           setUser(loggedInUser);
-      }
+        }
     };
 
     isAuth();
@@ -35,7 +25,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, user }}>
-      {children}
+        {children}
     </AuthContext.Provider>
   );
 };
