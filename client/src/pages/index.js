@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import {useAuth} from '../AuthContext';
 import cn from "classnames";
 import hand from './hand.svg'
+import './styles.css';
 
 const particleList = Array.from(Array(10));
 
@@ -119,14 +120,12 @@ const All = () => {
 
     return (
         <div>
-            <div class="h1" style={{color: '#4a7b9d'}}><center>All Posts</center></div>
+            <div class="h1" style={{color: '#201e1f'}}><center>All Posts</center></div>
             {posts.map(p => (
 
 
-                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
-
+                <div class="card mt-5 shadow p-3 mb-5" style={{borderRadius: '2em', boxShadow: '0 5px 10px rgba(0,0,0,.2)', backgroundColor: '#C3DBC5'}}>
                 <h5 class="card-header text-center bg-transparent">{p.category}</h5>
-
                 <div class="card-body">
                 <h3 class="card-title text-center">{p.title}
 

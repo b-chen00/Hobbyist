@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
+import './styles.css';
 
 const required = (value) => {
     if (!value) {
@@ -80,7 +81,7 @@ const Create = () => {
 
     return (
         <div className="h-75 d-flex align-items-center justify-content-center">
-            <div className="card card-container col-md-6 mx-auto" style={{backgroundColor: '#C0E0DE'}}>
+            <div className="col-md-6 mx-auto roundCard">
                 <h3 class="banner mt-3 text-center">
                     Create a Post
                 </h3>

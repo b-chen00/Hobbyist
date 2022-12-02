@@ -71,9 +71,9 @@ const Profile = () => {
 
     return (
         <div>
-            <div class="h1" style={{color: '#4a7b9d'}}><center>Your Posts</center></div>
+            <div class="h1" style={{color: '#201e1f'}}><center>Your Posts</center></div>
             {posts && posts.map(p => (
-                <div class="card mt-5 shadow p-3 mb-5 rounded" style={{backgroundColor: '#C0E0DE'}}>
+                <div class="card mt-5 shadow p-3 mb-5" style={{borderRadius: '2em', boxShadow: '0 5px 10px rgba(0,0,0,.2)', backgroundColor: '#C3DBC5'}}>
 
                 <h5 class="card-header text-center bg-transparent">{p.category} <button type="button" class="btn-close float-end" aria-label="Close" onClick={() => handleDelete(p._id)}></button></h5>
 

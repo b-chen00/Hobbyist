@@ -40,8 +40,8 @@ function App() {
 
 
     return (
-        <div style={{backgroundColor: 'white', height: '100%'}}>
-            <nav className="navbar navbar-expand-lg navbar-dark row" style={{backgroundColor: '#54577C'}}>
+        <div style={{backgroundColor: '#7798AB'}}>
+            <nav className="navbar navbar-expand-lg navbar-dark row" style={{backgroundColor: '#201e1f'}}>
                 <div class="col">
                 </div>
                 <div class="col">
@@ -96,7 +96,7 @@ function App() {
                 )}
             </nav>
 
-        <div className="container mt-3 h-100">
+        <div className="container mt-3">
             <Routes>
                 <Route path="/" element={<All/>} />
                 <Route path="/all" element={<All/>} />
