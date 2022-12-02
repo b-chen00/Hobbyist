@@ -98,11 +98,7 @@ const Post = () => {
                     .then((result) => {
                         setPost(result.post);
                         setBusy(false);
-                        console.log(result.post);
-                        console.log(post);
                     });
-                    console.log(post);
-                    console.log(post.comments);
                     setSuccessful(true);
                 }
             });

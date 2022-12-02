@@ -67,7 +67,6 @@ const Create = () => {
              })
              .then((response) => response.json())
              .then((result) => {
-                 console.log(result);
                  if (result.message !== "Created"){
                      setSuccessful(false);
                  }

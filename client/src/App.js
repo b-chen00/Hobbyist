@@ -24,7 +24,6 @@ function App() {
 
     const logOut = (e) => {
         e.preventDefault();
-        console.log("CALLED")
         setUsername("");
         setAuth(false);
         localStorage.clear();
@@ -70,6 +69,7 @@ function App() {
                 {auth ? (
                     <div className="col">
                         <div className="navbar-nav ml-auto float-end">
+                            <div class="h4 my-auto" style={{color: "white"}}>{username}</div>
                             <li className="nav-item h4">
                                 <a href="/all" className="nav-link" onClick={logOut}>
                                     Log Out

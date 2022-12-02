@@ -18,7 +18,6 @@ const All = () => {
 
 
     const handleLike = (postId, purpose) => {
-        console.log("CALLED");
         if (purpose === 'like'){
             fetch(process.env.REACT_APP_BASE_API_URL + '/api/like', {
                 method: "POST",
@@ -112,7 +111,6 @@ const All = () => {
                 posts.push(result.posts[i]);
             }
             setBusy(false);
-            console.log(posts);
         });
 
     }, [posts, username, likeChanged, unlikeChanged, auth]);

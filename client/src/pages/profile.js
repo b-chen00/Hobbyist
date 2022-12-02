@@ -40,8 +40,6 @@ const Profile = () => {
             setUsername(loggedInUser);
             setAuth(true)
         }
-        console.log(loggedInUser);
-        console.log(username);
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/myPosts', {
             method: "POST",
             mode: 'cors',
@@ -55,14 +53,12 @@ const Profile = () => {
         .then((response) => response.json())
         .then((result) => {
             if (result && result.posts){
-                console.log(result);
                 while(posts.length > 0) {
                     posts.pop();
                 }
                 for (let i = 0; i < result.posts.length; i++){
                     posts.push(result.posts[i]);
                 }
-                console.log(posts)
                 setBusy(false);
             }
         });

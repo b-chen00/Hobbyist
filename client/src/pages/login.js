@@ -61,9 +61,7 @@ const Login = () => {
             })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 if (result.message !== "Logged in"){
-                    console.log("Invalid login: "+ result.message );
                     setMessage(result.message);
                     setSuccessful(false);
                 }
@@ -72,12 +70,8 @@ const Login = () => {
                     setSuccessful(true);
                     setAuth(true);
                     localStorage.setItem('user', username);
-                    console.log("all");
                 }
             });
-        }
-        else {
-            //setLoading(false);
         }
     };
 

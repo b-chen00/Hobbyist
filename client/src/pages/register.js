@@ -37,7 +37,6 @@ const vpassword = (value) => {
 };
 
 const Register = () => {
-    //const navigate = useNavigate();
     const form = useRef();
     const checkBtn = useRef();
 
@@ -85,16 +84,13 @@ const Register = () => {
             })
             .then((response) => response.json())
             .then((result) => {
-                console.log(result);
                 if (result.message !== "Registered"){
-                    console.log("NOT REGISTERED "+ result.message );
                     setMessage(result.message);
                     setSuccessful(false);
                 }
                 else{
                     setMessage(result.message);
                     setSuccessful(true);
-                    console.log("redirect");
                 }
             });
         }

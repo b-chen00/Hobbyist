@@ -137,10 +137,12 @@ app.post('/api/create', (req, res) => {
 app.post('/api/delete', (req, res) => {
     Post.deleteOne({_id: req.body.postId}, (err) => {
         if (err){
-            res.json({message: "Error in deleting: " + err})
+            res.json({message: "Error in deleting: " + err});
         }
         else{
-            res.json({message: "Deleted"})
+            Comment.remove({post: req.body.postId}, (err) => {
+                res.json({message: "Deleted"})
+            });
         }
     })
 });
@@ -151,7 +153,6 @@ app.post('/api/createComment', (req, res) =>{
             Post.findOne({_id: req.body.postID}, (err, post) => {
                 if (!err && post) {
                     const newComment = new Comment({user: user._id, content: req.body.comment, post: post._id});
-                    //console.log("HERE  ==>  " + newComment._id);
                     post.comments.unshift(newComment._id);
                     post.save();
                     console.log(post.comments);
