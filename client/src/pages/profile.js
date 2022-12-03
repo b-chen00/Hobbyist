@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import {useAuth} from '../AuthContext';
 
 const Profile = () => {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(localStorage.getItem("user"));
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
     const {auth, setAuth} = useAuth();
@@ -18,7 +18,8 @@ const Profile = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "postId": postId
+                "postId": postId,
+                "username": username
             })
         })
         .then((response) => response.json())
@@ -66,7 +67,7 @@ const Profile = () => {
 
     }, [username, posts, postsChanged]);
 
-    if (!auth) return (
+    if (!username) return (
         <div>
             <Navigate to="/login" />
         </div>

@@ -75,12 +75,12 @@ const All = () => {
                 })
                 .then((response) => response.json())
                 .then((result) => {
-                    while(posts.length > 0) {
+                    posts.map(p => {
                         posts.pop();
-                    }
-                    for (let i = 0; i < result.posts.length; i++){
-                        posts.push(result.posts[i]);
-                    }
+                    });
+                    result.posts.map(p => {
+                        posts.push(p);
+                    });
                 });
             });
         }

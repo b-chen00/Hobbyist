@@ -141,16 +141,18 @@ app.post('/api/create', (req, res) => {
 });
 
 app.post('/api/delete', (req, res) => {
-    Post.deleteOne({_id: req.body.postId}, (err) => {
-        if (err){
-            res.json({message: "Error in deleting: " + err});
-        }
-        else{
-            Comment.remove({post: req.body.postId}, (err) => {
-                res.json({message: "Deleted"})
-            });
-        }
-    })
+    User.findOne({name: req.body.username}, (err, user) => {
+        Post.deleteOne({_id: req.body.postId, user: user._id}, (err) => {
+            if (err){
+                res.json({message: "Error in deleting: " + err});
+            }
+            else{
+                Comment.remove({post: req.body.postId}, (err) => {
+                    res.json({message: "Deleted"})
+                });
+            }
+        });
+    });
 });
 
 app.post('/api/createComment', (req, res) =>{

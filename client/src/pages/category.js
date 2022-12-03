@@ -21,7 +21,7 @@ const required = (value) => {
 const Category = () => {
     const form = useRef();
     const checkBtn = useRef();
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(localStorage.getItem("user"));
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
     const {auth} = useAuth();
@@ -85,7 +85,7 @@ const Category = () => {
         setBusy(false);
     }, [posts, username, auth]);
 
-    if (!auth) return (
+    if (!username) return (
         <div>
             <Navigate to="/login" />
         </div>

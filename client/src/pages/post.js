@@ -17,7 +17,7 @@ const required = (value) => {
 
 
 const Post = () => {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(localStorage.getItem("user"));
     const [post, setPost] = useState(null);
     const [comment, setComment] = useState("");
     const [isBusy, setBusy] = useState(true);
@@ -108,7 +108,7 @@ const Post = () => {
         }
     };
 
-    if (!auth) return (
+    if (!username) return (
         <div>
             <Navigate to="/login" />
         </div>

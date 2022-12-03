@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom';
 import './styles.css';
 
 const required = (value) => {
-    if (!value || value !== "") {
+    if (!value) {
         return (
             <div className="alert alert-danger" role="alert">
                 This field is required!
@@ -18,7 +18,7 @@ const required = (value) => {
 
 
 const Create = () => {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState(localStorage.getItem("user"));
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -84,7 +84,7 @@ const Create = () => {
          }
      };
 
-     if (!auth) return (
+     if (!username) return (
          <div>
              <Navigate to="/login" />
          </div>
