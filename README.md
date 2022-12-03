@@ -79,19 +79,21 @@ A Comment with reference to User who owns the Comment and the Post the Comment i
 4. As a user, I want to see other user's hobbies and activities.
 5. As a user, I want to like and comment on other user's posts.
 6. As a user, I want to see all of my posts.
+7. As a user, I want to delete my posts.
+8. As a user, I want to search for a specific category of posts.
 
 ## Research Topics
-
-(__TODO__: the research topics that you're planning on working on along with their point values... and the total points of research topics listed)
 
 * (2 points) Bootstrap
     * use Bootstrap CSS framework to create a theme
 * (6 points) React
     * use React as the front-end framework
 * (3 points) dotenv
-    * use dotenv as a configuration management to connect to MongoDB Atlas and configure API endpoints for React
+    * use dotenv as a configuration management to connect to MongoDB Atlas
+    * store MongoDB username, password, and url
+    * configure API endpoints for React from local host to my AWS hosting url api endpoint
 
-8 points total out of 8 required points
+11 points total out of 10 required points
 
 
 ## [Link to Initial Main Project File](app.mjs) 
@@ -102,5 +104,9 @@ A Comment with reference to User who owns the Comment and the Post the Comment i
 
 (__TODO__: list any tutorials/references/etc. that you've based your code off of)
 
-1. [passport.js authentication docs](http://passportjs.org/docs) - will most likely use this for login feature
-
+1. [Concurrently package](https://www.npmjs.com/package/concurrently) - used to run both ExpressJS and ReactJS servers at the same time with the React client commuicating with the Express backend server.
+2. [ReactJS frontend with ExpressJS backend](https://www.freecodecamp.org/news/how-to-create-a-react-app-with-a-node-backend-the-complete-guide/) - what I used to research how to setup my ReactJS frontend and have it communicate with the ExpressJS backend through API endpoints.
+3. [ReactJS Navbar Reference](https://react-bootstrap.github.io/utilities/transitions/) - used to start my React NavBar and routing implementation.
+4. [ReactJS NavBar Reference](https://retool.com/blog/building-a-react-navbar/) - used this as well to learn about React NavBars
+5. [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) - reference this to style my applications through buttons, cards, navbar, and more.
+6. [dotenv in React](https://create-react-app.dev/docs/adding-custom-environment-variables/) - learned about using dotenv in React
