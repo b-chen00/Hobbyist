@@ -69,7 +69,7 @@ A Comment with reference to User who owns the Comment and the Post the Comment i
 
 ## Site map
 
-[Site Map](documentation/sitemap.png)
+![Site Map](documentation/sitemap.png)
 
 ## User Stories or Use Cases
 
