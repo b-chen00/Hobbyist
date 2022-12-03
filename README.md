@@ -1,4 +1,4 @@
-# Hobbist
+# Hobbyist
 
 ## Overview
 
