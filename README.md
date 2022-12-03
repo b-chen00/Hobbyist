@@ -96,9 +96,9 @@ A Comment with reference to User who owns the Comment and the Post the Comment i
 11 points total out of 10 required points
 
 
-## [Link to Initial Main Project File](/) 
+## [Link to Initial Main Project File](https://github.com/nyu-csci-ua-0467-001-002-fall-2022/final-project-brndnchn) 
 
-[Initial Main Project](/)
+[Initial Main Project](https://github.com/nyu-csci-ua-0467-001-002-fall-2022/final-project-brndnchn)
 
 Because there is a frontend ReactJS server and a backend ExpressJS server, there are two servers running at the same time. I run both servers at the same time in order for communciations to happen using concurrently and the command ```npm run dev``` in the root directory of the project.
 
