@@ -18,7 +18,7 @@ A User with references to Posts and other Users:
 {
 	name: String,
 	hash: {type: String, required: true},
-  posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
+ 	posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
 }
 ```
 
@@ -30,15 +30,15 @@ A Post with references to Comments items and User:
 	content: String,
 	title: String,
 	category: String,
-  comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
-  createdAt: Date,
-  likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+  	comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+  	createdAt: Date,
+  	likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 }
 ```
 
 A Comment with reference to User who owns the Comment and the Post the Comment is under:
 
-```
+```javascript
 {
 	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	content: String,
