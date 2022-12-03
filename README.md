@@ -2,45 +2,54 @@
 
 ## Overview
 
-There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional fields such as descriptions, images, and guides. The user can view all other users' blogs, have a personalized feed through a follow function or a simple view all, or search for specific content. Users can also like and comment on posts in order for the community to thrive.
+There are many forms of blogs and communications online from Facebook to Instragram to Reddit. However, it is difficult to share an indepth view of any passion an user has. Hobbyist is a web app that acts as a blog for users with a focus on any hobbies they want to share in their many different mediums. User can register and login. Once they are logged in, they can create a blog post with optional field description. The user can view all other users' blogs, all of their own posts, or search for specific content. Users can also like and comment on posts in order for the community to thrive with the ability to delete their own posts.
 
 ## Data Model
 
 The application will store Users, Posts, and Comments.
 
 * users can have multiple posts (via references)
-* each post can have multiple comments (by embedding or referenmces, don't know which one is better yet)
+* each post can have multiple comments (via references)
+* each comment can have only one post and one user who owns the comment (via references)
 
 A User with references to Posts and other Users:
 
 ```javascript
 {
-  username: "I Eat Tea"
-  hash: // a password hash
-  posts: // an array of references to Post documents
+	name: String,
+	hash: {type: String, required: true},
+  posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}]
 }
 ```
 
-A Post with embedded Comments items:
+A Post with references to Comments items and User:
 
 ```javascript
 {
-  user: // a reference to a User object
-  title: "Origami Godzilla"
-  category: // a category String entered by user or a dropdown menu
-  comments: [
-    { user: Toad, content: "very cool"}
-    { user: Frog, content: "very not cool"}
-  ]
-  createdAt: // timestamp
-  likes: // an array of references to User documents
+	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	content: String,
+	title: String,
+	category: String,
+  comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+  createdAt: Date,
+  likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+}
+```
+
+A Comment with reference to User who owns the Comment and the Post the Comment is under:
+
+```
+{
+	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+	content: String,
+	post: {type: mongoose.Schema.Types.ObjectId, ref: 'Post'}
 }
 ```
 
 
 ## [Link to Commented First Draft Schema](db.mjs) 
 
-[First Draft Schema](db.mjs)
+[First Draft Schema](/server/src/db.mjs)
 
 ## Wireframes
 
@@ -80,7 +89,7 @@ A Post with embedded Comments items:
 * (6 points) React
     * use React as the front-end framework
 * (3 points) dotenv
-    * use dotenv as a configuration management to connect to MongoDB Atlas
+    * use dotenv as a configuration management to connect to MongoDB Atlas and configure API endpoints for React
 
 8 points total out of 8 required points
 
