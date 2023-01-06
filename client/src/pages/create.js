@@ -16,12 +16,27 @@ const required = (value) => {
     }
 };
 
+const myBucket = new AWS.S3({
+    params: { Bucket: 'hobbyistbucket'},
+    region: 'us-east-1'
+})
+
+const generateUUID = () => {
+    const d = new Date().getTime();
+    const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+}
 
 const Create = () => {
     const [username, setUsername] = useState(localStorage.getItem("user"));
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
+    const [image, setImage] = useState(null)
     const [message, setMessage] = useState("");
     const [successful, setSuccessful] = useState(false);
     const form = useRef();
@@ -50,11 +65,33 @@ const Create = () => {
          setCategory(c);
      };
 
+     const onChangeImage = (e) => {
+         const c = e.target.files[0];
+         setImage(c);
+     };
+
      const handleCreate = (e) => {
          e.preventDefault();
 
          form.current.validateAll();
          if (checkBtn.current.context._errors.length === 0) {
+             iurl = generateUUID();
+             const params = {
+                 ACL: 'public-read',
+                 Body: image,
+                 Bucket: S3_BUCKET,
+                 Key: iurl
+             };
+
+             myBucket.putObject(params)
+             .on('httpUploadProgress', (evt) => {
+                 setProgress(Math.round((evt.loaded / evt.total) * 100))
+             })
+             .send((err) => {
+                 if (err) console.log(err)
+             })
+
+
              fetch(process.env.REACT_APP_BASE_API_URL + '/api/create', {
                  method: "POST",
                  mode: 'cors',
@@ -65,7 +102,8 @@ const Create = () => {
                      "describe": description,
                      "title": title,
                      "category": category,
-                     "username": username
+                     "username": username,
+                     "imageurl": 'https://hobbyistbucket.s3.us-east-1.amazonaws.com/' + iurl
                  })
              })
              .then((response) => response.json())
@@ -80,6 +118,7 @@ const Create = () => {
                  setTitle("");
                  setDescription("");
                  setCategory("");
+                 setImage(null);
              });
          }
      };
@@ -118,6 +157,13 @@ const Create = () => {
                         className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                         validations={[required]}
                         onChange={onChangeCategory}/>
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label htmlFor="image">Image:</label>
+                        <Input type="image" id="image" name="image" value={image}
+                        className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
+                        validations={[required]}
+                        onChange={onChangeImage}/>
                     </div>
                     <input type="submit" class="btn btn-outline-success btn-block mt-3 mb-4" value="Create"/>
 
