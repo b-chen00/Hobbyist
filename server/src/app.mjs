@@ -124,7 +124,7 @@ app.post('/api/myPosts', (req, res) => {
 app.post('/api/create', (req, res) => {
     User.findOne({name: req.body.username}, (err, user) => {
         if (!err && user) {
-            const newPost = new Post({user: user._id, content: req.body.describe, title: req.body.title, category: req.body.category, comments: [], createdAt: Date.now(), likes: []});
+            const newPost = new Post({user: user._id, content: req.body.describe, title: req.body.title, category: req.body.category, image: req.body.imageurl, comments: [], createdAt: Date.now(), likes: []});
             newPost.save(function (err){
                 if (err){
                     res.json({ message: "Error creating post " + err});
