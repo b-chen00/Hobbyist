@@ -4,6 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {useAuth} from '../AuthContext';
 import { Navigate } from 'react-router-dom';
+import AWS from 'aws-sdk';
 import './styles.css';
 
 const required = (value) => {
@@ -16,22 +17,31 @@ const required = (value) => {
     }
 };
 
+const S3_BUCKET = 'hobbyistbucket';
+const REGION = 'us-east-1';
+
+AWS.config.update({
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY
+})
+
 const myBucket = new AWS.S3({
-    params: { Bucket: 'hobbyistbucket'},
-    region: 'us-east-1'
+    params: { Bucket: S3_BUCKET},
+    region: REGION
 })
 
 const generateUUID = () => {
-    const d = new Date().getTime();
+    let d = new Date().getTime();
     const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         const r = (d + Math.random()*16)%16 | 0;
         d = Math.floor(d/16);
-        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+        return (c === 'x' ? r : (r&0x3|0x8)).toString(16);
     });
     return uuid;
 }
 
 const Create = () => {
+    const [progress , setProgress] = useState(0);
     const [username, setUsername] = useState(localStorage.getItem("user"));
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -73,9 +83,11 @@ const Create = () => {
      const handleCreate = (e) => {
          e.preventDefault();
 
+         console.log(process.env.REACT_APP_AWS_ACCESS_KEY);
+
          form.current.validateAll();
          if (checkBtn.current.context._errors.length === 0) {
-             iurl = generateUUID();
+             const iurl = generateUUID();
              const params = {
                  ACL: 'public-read',
                  Body: image,
@@ -160,7 +172,7 @@ const Create = () => {
                     </div>
                     <div className="form-group col-md-6">
                         <label htmlFor="image">Image:</label>
-                        <Input type="image" id="image" name="image" value={image}
+                        <Input type="file" id="image" name="image"
                         className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                         validations={[required]}
                         onChange={onChangeImage}/>
