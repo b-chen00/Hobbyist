@@ -130,6 +130,11 @@ const All = () => {
                 </h3>
                 <h6 class="card-title text-center">{p.user.name}</h6>
                 <p class="card-text text-center">{p.content}</p>
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <img src={p.image} class="img-fluid" alt="Responsive image"/>
+                    </div>
+                </div>
                 <p class="card-text text-center">
                 {auth && (<Link to ={`/post/${p._id}`}>
                         <input type="button" value="Comment" class="btn btn-outline-primary"/>
@@ -139,7 +144,8 @@ const All = () => {
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
                     {p.likes.length}
-                    {auth && p.likes.filter(e => e.name === username).length === 0 && (<button
+                    {auth && p.likes.filter(e => e.name === username).length === 0 && (
+                        <button
                           onClick={() => handleLike(p._id, 'like')}
                           class='btn btn-secondary mx-2'
                         >
