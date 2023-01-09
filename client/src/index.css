@@ -5,9 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  backgroundImage: "url(/forest.jpg)",
-              backgroundRepeat: "no-repeat",
-              backgroundAttachment: "stick"
+
 }
 
 code {

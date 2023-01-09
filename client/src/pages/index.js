@@ -118,7 +118,7 @@ const All = () => {
 
     return (
         <div>
-            <div class="h1" style={{color: '#201e1f'}}><center>All Posts</center></div>
+            <div class="h1" style={{color: 'white'}}><center>All Posts</center></div>
             {posts.map(p => (
 
 

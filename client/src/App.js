@@ -43,11 +43,8 @@ function App() {
 
 
     return (
-        <div style={{backgroundImage: "url(/forest.jpg)",
-                    backgroundRepeat: "no-repeat",
-                    backgroundAttachment: "fixed",
-                    backgroundSize: "cover"}}>
-            <nav className="navbar navbar-expand-lg navbar-dark row" style={{backgroundColor: '#201e1f'}}>
+        <div style={{}}>
+            <nav className="navbar navbar-expand-lg navbar-dark row w-100 mx-0" style={{backgroundColor: '#201e1f'}}>
                 <div class="col">
                 </div>
                 <div class="col">
