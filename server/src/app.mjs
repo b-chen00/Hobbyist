@@ -75,7 +75,6 @@ app.post('/api/login', (req, res) => {
 });
 
 app.post('/api/register', (req, res) => {
-    // Referencing authentiation from homework #5
     function success(newUser) {
         auth.startAuthenticatedSession(req, newUser, (err) => {
             if (!err) {
