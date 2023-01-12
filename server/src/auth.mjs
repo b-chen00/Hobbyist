@@ -22,7 +22,7 @@ const endAuthenticatedSession = (req, cb) => {
 
 const register = (username, password, errorCallback, successCallback) => {
     const u = username['length'];
-    if (u < 5){
+    if (u < 3){
         errorCallback({message: 'USERNAME TOO SHORT'});
     }
     else{

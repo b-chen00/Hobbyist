@@ -120,14 +120,10 @@ const All = () => {
         <div>
             <div class="h1" style={{color: 'white'}}><center>All Posts</center></div>
             {posts.map(p => (
-
-
                 <div class="card mt-5 shadow p-3 mb-5" style={{borderRadius: '2em', boxShadow: '0 5px 10px rgba(0,0,0,.2)', backgroundColor: '#C3DBC5'}}>
                 <h5 class="card-header text-center bg-transparent">{p.category}</h5>
                 <div class="card-body">
-                <h3 class="card-title text-center">{p.title}
-
-                </h3>
+                <h3 class="card-title text-center">{p.title}</h3>
                 <h6 class="card-title text-center">{p.user.name}</h6>
                 <p class="card-text text-center">{p.content}</p>
                 <div class="row justify-content-center">

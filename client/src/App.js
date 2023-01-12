@@ -12,23 +12,23 @@ import {useAuth} from './AuthContext';
 
 function App() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState(localStorage.getItem("user") || "");
     const {auth, setAuth} = useAuth();
+    const {user, setUser} = useAuth();
     const [isBusy, setBusy] = useState(true);
 
     useEffect(() => {
         setBusy(!isBusy);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
             setAuth(true)
         }
         setBusy(!isBusy);
-    }, [username, setAuth]);
+    }, [user, auth]);
 
     const logOut = (e) => {
         e.preventDefault();
-        setUsername("");
+        setUser(null);
         setAuth(false);
         localStorage.clear();
         fetch('process.env.REACT_APP_BASE_API_URL/api/logout', {
@@ -80,7 +80,7 @@ function App() {
                 {auth ? (
                     <div className="col">
                         <div className="navbar-nav ml-auto float-end">
-                            <div class="h4 my-auto" style={{color: "white"}}>{username}</div>
+                            <div class="h4 my-auto" style={{color: "white"}}>{user}</div>
                             <li className="nav-item h4">
                                 <a href="/all" className="nav-link" onClick={logOut}>
                                     Log Out

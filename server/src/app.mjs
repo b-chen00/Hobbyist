@@ -87,7 +87,7 @@ app.post('/api/register', (req, res) => {
     }
 
     function error(err) {
-        res.json({ message: "Registration error"});
+        res.json({ message: "Registration error " + err.message});
     }
     auth.register(req.body.username, req.body.password, error, success);
 });
