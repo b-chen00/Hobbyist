@@ -132,10 +132,9 @@ const All = () => {
                     </div>
                 </div>
                 <p class="card-text text-center">
-                {auth && (<Link to ={`/post/${p._id}`}>
-                        <input type="button" value="Comment" class="btn btn-outline-primary"/>
-                    </Link>
-                )}
+                <Link to ={`/post/${p._id}`}>
+                    <input type="button" value="Comments" class="btn btn-outline-primary"/>
+                </Link>
                 </p>
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
