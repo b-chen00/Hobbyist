@@ -98,7 +98,7 @@ const Register = () => {
     return (
         <div className="h-50 d-flex align-items-center justify-content-center">
             <div className="card card-container col-md-6 mx-auto" style={{backgroundColor: '#C0E0DE'}}>
-                <h3 class="banner mt-3 text-center">
+                <h3 className="banner mt-3 text-center">
                     Register
                 </h3>
                 <Form onSubmit={handleRegister} ref={form}>

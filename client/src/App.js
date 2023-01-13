@@ -45,9 +45,9 @@ function App() {
     return (
         <div style={{}}>
             <nav className="navbar navbar-expand-lg navbar-dark row w-100 mx-0" style={{backgroundColor: '#201e1f'}}>
-                <div class="col">
+                <div className="col">
                 </div>
-                <div class="col">
+                <div className="col">
                     <ul className="navbar-nav mr-auto justify-content-center">
                         <li className="nav-item h4">
                             <Link to={"/all"} className="nav-link">
@@ -80,7 +80,7 @@ function App() {
                 {auth ? (
                     <div className="col">
                         <div className="navbar-nav ml-auto float-end">
-                            <div class="h4 my-auto" style={{color: "white"}}>{user}</div>
+                            <div className="h4 my-auto" style={{color: "white"}}>{user}</div>
                             <li className="nav-item h4">
                                 <a href="/all" className="nav-link" onClick={logOut}>
                                     Log Out
