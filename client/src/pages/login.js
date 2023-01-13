@@ -18,9 +18,8 @@ const required = (value) => {
 const Login = () => {
     const form = useRef();
     const checkBtn = useRef();
-    const { setAuth } = useAuth();
-
-    const [username, setUsername] = useState("");
+    const {user, setUser} = useAuth();
+    const {auth, setAuth} = useAuth();
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
@@ -28,13 +27,13 @@ const Login = () => {
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
      }, []);
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
-        setUsername(username);
+        setUser(username);
     };
 
     const onChangePassword = (e) => {
@@ -55,7 +54,7 @@ const Login = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": username,
+                    "username": user,
                     "password": password
                 })
             })
@@ -69,7 +68,7 @@ const Login = () => {
                     setMessage(result.message);
                     setSuccessful(true);
                     setAuth(true);
-                    localStorage.setItem('user', username);
+                    localStorage.setItem('user', user);
                 }
             });
         }
@@ -84,7 +83,7 @@ const Login = () => {
                 <Form onSubmit={handleLogin} ref={form}>
                     {successful && (
                         <div>
-                            {username && <Navigate to="/all" />}
+                            {user && <Navigate to="/all" />}
                         </div>
                     )}
                     {!successful && (
@@ -95,7 +94,7 @@ const Login = () => {
                                 type="text"
                                 className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                                 name="username"
-                                value={username}
+                                value={user}
                                 validations={[required]}
                                 onChange={onChangeUsername}
                                 />

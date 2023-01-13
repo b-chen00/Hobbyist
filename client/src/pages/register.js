@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {Link, Routes, Route, Navigate} from 'react-router-dom';
-
+import {useAuth} from '../AuthContext';
 
 const required = (value) => {
     if (!value) {
@@ -39,8 +39,7 @@ const vpassword = (value) => {
 const Register = () => {
     const form = useRef();
     const checkBtn = useRef();
-
-    const [username, setUsername] = useState("");
+    const {user, setUser} = useAuth();
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
@@ -48,13 +47,13 @@ const Register = () => {
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
      }, []);
 
     const onChangeUsername = (e) => {
         const username = e.target.value;
-        setUsername(username);
+        setUser(username);
     };
 
     const onChangePassword = (e) => {
@@ -78,7 +77,7 @@ const Register = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": username,
+                    "username": user,
                     "password": password
                 })
             })
@@ -105,7 +104,7 @@ const Register = () => {
                 <Form onSubmit={handleRegister} ref={form}>
                     {successful && (
                         <div>
-                            {username && <Navigate to="/login" />}
+                            {user && <Navigate to="/login" />}
                         </div>
                     )}
                     {!successful && (
@@ -116,7 +115,7 @@ const Register = () => {
                             type="text"
                             className="form-control col-xs-12 col-xs-offset-0 col-sm-6 col-sm-offset-3 mb-3"
                             name="username"
-                            value={username}
+                            value={user}
                             validations={[required, vusername]}
                             onChange={onChangeUsername}
                             />

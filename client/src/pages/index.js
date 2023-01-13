@@ -8,9 +8,9 @@ import './styles.css';
 const particleList = Array.from(Array(10));
 
 const All = () => {
-    const [username, setUsername] = useState("");
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
+    const {user, setUser} = useAuth();
     const {auth} = useAuth();
     const [likeChanged, setLikeChanged] = useState(false);
     const [unlikeChanged, setUnlikeChanged] = useState(false);
@@ -26,7 +26,7 @@ const All = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": username,
+                    "username": user,
                     "postId": postId
                 })
             })
@@ -59,7 +59,7 @@ const All = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": username,
+                    "username": user,
                     "postId": postId
                 })
             })
@@ -92,7 +92,7 @@ const All = () => {
         setUnlikeChanged(false);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
 
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/all', {
@@ -113,7 +113,7 @@ const All = () => {
             setBusy(false);
         });
 
-    }, [posts, username, likeChanged, unlikeChanged, auth]);
+    }, [posts, user, likeChanged, unlikeChanged, auth]);
 
 
     return (
@@ -139,7 +139,7 @@ const All = () => {
                 </div>
                 <div class="card-footer text-muted pull-right text-end bg-transparent">
                     {p.likes.length}
-                    {auth && p.likes.filter(e => e.name === username).length === 0 && (
+                    {auth && p.likes.filter(e => e.name === user).length === 0 && (
                         <button
                           onClick={() => handleLike(p._id, 'like')}
                           class='btn btn-secondary mx-2'
@@ -148,7 +148,7 @@ const All = () => {
                         </button>
                     )}
 
-                    {auth && p.likes.filter(e => e.name === username).length > 0 && (<button
+                    {auth && p.likes.filter(e => e.name === user).length > 0 && (<button
                           onClick={() => handleLike(p._id, 'unlike')}
                           class='btn btn-success mx-2'
                         >

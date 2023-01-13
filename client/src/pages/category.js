@@ -21,10 +21,10 @@ const required = (value) => {
 const Category = () => {
     const form = useRef();
     const checkBtn = useRef();
-    const [username, setUsername] = useState(localStorage.getItem("user"));
+    const {user, setUser} = useAuth();
+    const {auth} = useAuth();
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
-    const {auth} = useAuth();
     const [clicked, setClicked] = useState(false);
     const [category, setCategory] = useState("");
 
@@ -60,7 +60,7 @@ const Category = () => {
         setBusy(true);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/category', {
             method: "POST",
@@ -83,9 +83,9 @@ const Category = () => {
             setBusy(false);
         });
         setBusy(false);
-    }, [posts, username, auth]);
+    }, [posts, user, auth]);
 
-    if (!username) return (
+    if (!user) return (
         <div>
             <Navigate to="/login" />
         </div>

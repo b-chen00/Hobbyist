@@ -42,7 +42,8 @@ const generateUUID = () => {
 
 const Create = () => {
     const [progress , setProgress] = useState(0);
-    const [username, setUsername] = useState(localStorage.getItem("user"));
+    const {user, setUser} = useAuth();
+    const {auth} = useAuth();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -50,13 +51,12 @@ const Create = () => {
     const [message, setMessage] = useState("");
     const [successful, setSuccessful] = useState(false);
     const form = useRef();
-    const {auth} = useAuth();
     const checkBtn = useRef();
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
      }, []);
 
@@ -114,7 +114,7 @@ const Create = () => {
                      "describe": description,
                      "title": title,
                      "category": category,
-                     "username": username,
+                     "username": user,
                      "imageurl": 'https://hobbyistbucket.s3.us-east-1.amazonaws.com/' + iurl
                  })
              })
@@ -135,7 +135,7 @@ const Create = () => {
          }
      };
 
-     if (!username) return (
+     if (!user) return (
          <div>
              <Navigate to="/login" />
          </div>

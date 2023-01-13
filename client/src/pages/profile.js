@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom';
 import {useAuth} from '../AuthContext';
 
 const Profile = () => {
-    const [username, setUsername] = useState(localStorage.getItem("user"));
+    const {user, setUser} = useAuth();
+    const {auth} = useAuth();
     const [posts, setPosts] = useState([]);
     const [isBusy, setBusy] = useState(true);
-    const {auth, setAuth} = useAuth();
     const [postsChanged, setPostsChanged] = useState(false);
 
     const handleDelete = (postId) => {
@@ -19,7 +19,7 @@ const Profile = () => {
             },
             body: JSON.stringify({
                 "postId": postId,
-                "username": username
+                "username": user
             })
         })
         .then((response) => response.json())
@@ -37,11 +37,6 @@ const Profile = () => {
     useEffect(() => {
         setPostsChanged(false);
         setBusy(true);
-        const loggedInUser = localStorage.getItem("user");
-        if (loggedInUser) {
-            setUsername(loggedInUser);
-            setAuth(true)
-        }
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/myPosts', {
             method: "POST",
             mode: 'cors',
@@ -49,7 +44,7 @@ const Profile = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "username": loggedInUser
+                "username": user
             })
         })
         .then((response) => response.json())
@@ -65,9 +60,9 @@ const Profile = () => {
             }
         });
 
-    }, [username, posts, postsChanged]);
+    }, [user, posts, postsChanged]);
 
-    if (!username) return (
+    if (!user) return (
         <div>
             <Navigate to="/login" />
         </div>

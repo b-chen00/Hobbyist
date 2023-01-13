@@ -17,13 +17,13 @@ const required = (value) => {
 
 
 const Post = () => {
-    const [username, setUsername] = useState(localStorage.getItem("user"));
+    const {user, setUser} = useAuth();
+    const {auth} = useAuth();
     const [post, setPost] = useState(null);
     const [comment, setComment] = useState("");
     const [isBusy, setBusy] = useState(true);
     const [message, setMessage] = useState("");
     const [successful, setSuccessful] = useState(false);
-    const {auth} = useAuth();
     const form = useRef();
     const checkBtn = useRef();
 
@@ -33,7 +33,7 @@ const Post = () => {
         setBusy(true);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
-            setUsername(loggedInUser);
+            setUser(loggedInUser);
         }
 
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/post', {
@@ -71,7 +71,7 @@ const Post = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    "username": username,
+                    "username": user,
                     "comment": comment,
                     "postID": id
                 })
@@ -126,7 +126,7 @@ const Post = () => {
             )}
             {auth && (
                 <Form onSubmit={handleComment} ref={form} className="form-inline">
-                    <div className='h2 d-inline-block'><label htmlFor="comment">{username}</label></div>
+                    <div className='h2 d-inline-block'><label htmlFor="comment">{user}</label></div>
                     <div className="form-group col-md-8 d-inline-block">
                         <Input
                         type="text"
