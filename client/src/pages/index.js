@@ -3,6 +3,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import {useAuth} from '../AuthContext';
 import cn from "classnames";
 import hand from './hand.svg'
+import Post from '../components/Post'
 import './styles.css';
 
 const particleList = Array.from(Array(10));
@@ -18,6 +19,9 @@ const All = () => {
 
 
     const handleLike = (postId, purpose) => {
+        console.log(posts);
+        console.log(postId);
+        console.log(user);
         if (purpose === 'like'){
             fetch(process.env.REACT_APP_BASE_API_URL + '/api/like', {
                 method: "POST",
@@ -87,9 +91,6 @@ const All = () => {
     };
 
     useEffect(() => {
-        setBusy(true);
-        setLikeChanged(false);
-        setUnlikeChanged(false);
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             setUser(loggedInUser);
@@ -120,44 +121,7 @@ const All = () => {
         <div>
             <div class="h1" style={{color: 'white'}}><center>All Posts</center></div>
             {posts.map(p => (
-                <div class="card mt-5 shadow p-3 mb-5" style={{borderRadius: '2em', boxShadow: '0 5px 10px rgba(0,0,0,.2)', backgroundColor: '#C3DBC5'}}>
-                <h5 class="card-header text-center bg-transparent">{p.category}</h5>
-                <div class="card-body">
-                <h3 class="card-title text-center">{p.title}</h3>
-                <h6 class="card-title text-center">{p.user.name}</h6>
-                <p class="card-text text-center">{p.content}</p>
-                <div class="row justify-content-center">
-                    <div class="col-4">
-                        <img src={p.image} class="img-fluid" alt="Responsive image"/>
-                    </div>
-                </div>
-                <p class="card-text text-center">
-                <Link to ={`/post/${p._id}`}>
-                    <input type="button" value="Comments" class="btn btn-outline-primary"/>
-                </Link>
-                </p>
-                </div>
-                <div class="card-footer text-muted pull-right text-end bg-transparent">
-                    {p.likes.length}
-                    {auth && p.likes.filter(e => e.name === user).length === 0 && (
-                        <button
-                          onClick={() => handleLike(p._id, 'like')}
-                          class='btn btn-secondary mx-2'
-                        >
-                            <img src={hand} class="img-responsive"/>
-                        </button>
-                    )}
-
-                    {auth && p.likes.filter(e => e.name === user).length > 0 && (<button
-                          onClick={() => handleLike(p._id, 'unlike')}
-                          class='btn btn-success mx-2'
-                        >
-                            <img src={hand} class="img-responsive"/>
-                        </button>
-                    )}
-                    {p.createdAt}
-                </div>
-                </div>
+                <Post title={p.title} category={p.category} title={p.title} user={user} content={p.content} image={p.image} _id={p._id} likes={p.likes} createdAt={p.createdAt} hl={handleLike} au={auth}/>
             ))}
         </div>
     );
