@@ -11,16 +11,12 @@ const All = () => {
     const [isBusy, setBusy] = useState(true);
     const {user, setUser} = useAuth();
     const {auth} = useAuth();
-    const [likeChanged, setLikeChanged] = useState(false);
-    const [unlikeChanged, setUnlikeChanged] = useState(false);
-    const [clicked, setClicked] = useState(false);
 
     useEffect(() => {
         const loggedInUser = localStorage.getItem("user");
         if (loggedInUser) {
             setUser(loggedInUser);
         }
-
         fetch(process.env.REACT_APP_BASE_API_URL + '/api/all', {
             method: "GET",
             mode: 'cors',
@@ -39,7 +35,7 @@ const All = () => {
             setBusy(false);
         });
 
-    }, [posts, user, likeChanged, unlikeChanged, auth]);
+    }, [posts, user, setUser, auth]);
 
 
     return (
@@ -56,9 +52,7 @@ const All = () => {
                     likes={p.likes}
                     createdAt={p.createdAt}
                     posts={posts}
-                    au={auth}
-                    setLikeChanged={setLikeChanged}
-                    setUnlikeChanged={setUnlikeChanged}/>
+                    au={auth}/>
             ))}
         </div>
     );

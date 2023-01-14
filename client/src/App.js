@@ -28,7 +28,7 @@ function App() {
 
     const logOut = (e) => {
         e.preventDefault();
-        setUser(null);
+        setUser('');
         setAuth(false);
         localStorage.clear();
         fetch('process.env.REACT_APP_BASE_API_URL/api/logout', {
